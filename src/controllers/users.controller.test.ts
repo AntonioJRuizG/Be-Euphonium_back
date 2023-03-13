@@ -1,4 +1,3 @@
-/* eslint-disable capitalized-comments */
 import { Response, Request } from 'express';
 import { User } from '../entities/user';
 import { Repo } from '../repository/repo.interface';
@@ -12,7 +11,7 @@ describe('Given UsersController', () => {
     queryId: jest.fn(),
     update: jest.fn(),
     remove: jest.fn(),
-  }; // Con esto no pide mockear todas las funciones de Repo, aunque aqui no la usemos
+  };
 
   const req = {
     body: {},
@@ -64,19 +63,19 @@ describe('Given UsersController', () => {
     }); */
   });
 
-  /* describe('Given the login method from UsersController', () => {
+  describe('Given the login method from UsersController', () => {
     test('Then json should be called if request is complete', async () => {
       req.body.email = 'email';
       req.body.pw = 'test';
       (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
-      (Auth.compare as jest.Mock).mockResolvedValue(true);
+      // Auth Test: (Auth.compare as jest.Mock).mockResolvedValue(true);
       await controller.login(req, resp, next);
       expect(mockRepo.search).toHaveBeenCalled();
       expect(resp.status).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
 
-    test('Then if pws do not match (Auth.compare(false)) an error should be catch and should call next()', async () => {
+    /* Auth Test: test('Then if pws do not match (Auth.compare(false)) an error should be catch and should call next()', async () => {
       req.body.email = 'email';
       req.body.pw = 'test';
       // (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
@@ -84,7 +83,7 @@ describe('Given UsersController', () => {
       await controller.login(req, resp, next);
       expect(mockRepo.search).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
-    });
+    }); */
 
     test('Then if there is no email an error should be catch and should call next()', async () => {
       req.body.email = '';
@@ -118,5 +117,5 @@ describe('Given UsersController', () => {
       expect(mockRepo.search).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
-  }); */
+  });
 });
