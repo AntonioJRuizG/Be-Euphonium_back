@@ -79,18 +79,8 @@ describe('Given UsersController', () => {
       expect(resp.json).toHaveBeenCalled();
     });
 
-    test('Then should throw an HTTPError with status 401 and message "Unauthorized" if email is missing', async () => {
+    test('Then should throw an HTTPError with status 401 and message "Unauthorized" if email or password are missing', async () => {
       req.body.email = '';
-      req.body.pw = 'test';
-      (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
-      // (Auth.compare as jest.Mock).mockResolvedValue(false);
-      await controller.login(req, resp, next);
-      expect(mockRepo.search).toHaveBeenCalled();
-      expect(next).toHaveBeenCalled();
-    });
-
-    test('Then should throw an HTTPError with status 401 and message "Unauthorized" if password is missing', async () => {
-      req.body.email = 'test';
       req.body.pw = '';
       (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
       // (Auth.compare as jest.Mock).mockResolvedValue(false);

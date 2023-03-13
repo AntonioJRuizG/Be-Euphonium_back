@@ -32,7 +32,7 @@ export class UsersController {
     try {
       debug('login:post');
       if (!req.body.email || !req.body.pw)
-        throw new HTTPError(401, 'Unauthorized', 'Invalid Email or password');
+        throw new HTTPError(401, 'Unauthorized', 'Invalid email or password');
       const data = await this.repo.search({
         key: 'email',
         value: req.body.email,
@@ -40,7 +40,7 @@ export class UsersController {
       if (!data.length)
         throw new HTTPError(401, 'Unauthorized', 'Email not found');
       if (req.body.pw !== data[0].pw)
-        throw new HTTPError(401, 'Unauthorized', 'Email not found');
+        throw new HTTPError(401, 'Unauthorized', 'Invalid email or password');
       resp.status(202);
       resp.json({
         results: [data],
