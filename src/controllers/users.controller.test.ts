@@ -31,7 +31,7 @@ describe('Given UsersController', () => {
   describe('Given register method from UsersController', () => {
     test('Then it should be called if there are NOT errors', async () => {
       req.body.email = 'email';
-      req.body.password = 'test';
+      req.body.pw = 'test';
       // Instanciar clase controller
       await controller.register(req, resp, next);
 
@@ -42,7 +42,7 @@ describe('Given UsersController', () => {
 
     test('Then if there is no email then an error should be catched and call next()', async () => {
       req.body.email = '';
-      req.body.password = 'test';
+      req.body.pw = 'test';
       // S(mockRepo.create as jest.Mock).mockRejectedValue(HTTPErrorMock);
       await controller.register(req, resp, next);
       expect(mockRepo.create).toHaveBeenCalled();
@@ -51,14 +51,14 @@ describe('Given UsersController', () => {
 
     test('Then if there is no email then an error should be catched and call next()', async () => {
       req.body.email = 'email';
-      req.body.password = '';
+      req.body.pw = '';
       await controller.register(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
 
-    /* Test.only('Then it should throw an error if email or password not exist', async () => {
+    /* Test.only('Then it should throw an error if email or pw not exist', async () => {
       req.body.email = '';
-      req.body.password = '';
+      req.body.pw = '';
       /* C await controller.register(req, resp, next);
       expect(HTTPErrorMock).toHaveBeenCalled();
     }); */
@@ -67,7 +67,7 @@ describe('Given UsersController', () => {
   /* describe('Given the login method from UsersController', () => {
     test('Then json should be called if request is complete', async () => {
       req.body.email = 'email';
-      req.body.password = 'test';
+      req.body.pw = 'test';
       (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
       (Auth.compare as jest.Mock).mockResolvedValue(true);
       await controller.login(req, resp, next);
@@ -76,9 +76,9 @@ describe('Given UsersController', () => {
       expect(resp.json).toHaveBeenCalled();
     });
 
-    test('Then if passwords do not match (Auth.compare(false)) an error should be catch and should call next()', async () => {
+    test('Then if pws do not match (Auth.compare(false)) an error should be catch and should call next()', async () => {
       req.body.email = 'email';
-      req.body.password = 'test';
+      req.body.pw = 'test';
       // (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
       (Auth.compare as jest.Mock).mockResolvedValue(false);
       await controller.login(req, resp, next);
@@ -88,7 +88,7 @@ describe('Given UsersController', () => {
 
     test('Then if there is no email an error should be catch and should call next()', async () => {
       req.body.email = '';
-      req.body.password = 'test';
+      req.body.pw = 'test';
       // (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
       // (Auth.compare as jest.Mock).mockResolvedValue(false);
       await controller.login(req, resp, next);
@@ -98,7 +98,7 @@ describe('Given UsersController', () => {
 
     test('Then if there is no pass an error should be catch and should call next()', async () => {
       req.body.email = 'test';
-      req.body.password = '';
+      req.body.pw = '';
       // (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
       // (Auth.compare as jest.Mock).mockResolvedValue(false);
       await controller.login(req, resp, next);
@@ -108,7 +108,7 @@ describe('Given UsersController', () => {
 
     test('Then if search return an empty array an error should be catch and should call next()', async () => {
       req.body.email = 'email';
-      req.body.password = 'test';
+      req.body.pw = 'test';
       (mockRepo.search as jest.Mock).mockResolvedValue({
         key: 'email',
         value: 'test-no-equal',
