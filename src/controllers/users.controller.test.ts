@@ -67,12 +67,27 @@ describe('Given UsersController', () => {
     test('Then json should be called if request is complete', async () => {
       req.body.email = 'email';
       req.body.pw = 'test';
-      (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
+      (mockRepo.search as jest.Mock).mockResolvedValue([
+        {
+          email: 'email',
+          pw: 'test',
+        },
+      ]);
+
       // Auth Test: (Auth.compare as jest.Mock).mockResolvedValue(true);
       await controller.login(req, resp, next);
       expect(mockRepo.search).toHaveBeenCalled();
       expect(resp.status).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
+    });
+
+    test('Then if passwords do not match next should be called', async () => {
+      req.body.email = 'email';
+      req.body.pw = 'test-pw';
+      (mockRepo.search as jest.Mock).mockResolvedValue(['test-pw-wrong']);
+      await controller.login(req, resp, next);
+      expect(mockRepo.search).toHaveBeenCalled();
+      expect(next).toHaveBeenCalled();
     });
 
     /* Auth Test: test('Then if pws do not match (Auth.compare(false)) an error should be catch and should call next()', async () => {
@@ -88,17 +103,17 @@ describe('Given UsersController', () => {
     test('Then if there is no email an error should be catch and should call next()', async () => {
       req.body.email = '';
       req.body.pw = 'test';
-      // (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
+      (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
       // (Auth.compare as jest.Mock).mockResolvedValue(false);
       await controller.login(req, resp, next);
       expect(mockRepo.search).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
 
-    test('Then if there is no pass an error should be catch and should call next()', async () => {
+    test('Then if there is no password an error should be catch and should call next()', async () => {
       req.body.email = 'test';
       req.body.pw = '';
-      // (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
+      (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
       // (Auth.compare as jest.Mock).mockResolvedValue(false);
       await controller.login(req, resp, next);
       expect(mockRepo.search).toHaveBeenCalled();

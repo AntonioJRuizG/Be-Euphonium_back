@@ -39,7 +39,8 @@ export class UsersController {
       });
       if (!data.length)
         throw new HTTPError(401, 'Unauthorized', 'Email not found');
-
+      if (req.body.pw !== data[0].pw)
+        throw new HTTPError(401, 'Unauthorized', 'Email not found');
       resp.status(202);
       resp.json({
         results: [data],
