@@ -28,10 +28,10 @@ export class UsersController {
     }
   }
 
-  /* A async login(req: Request, resp: Response, next: NextFunction) {
+  async login(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('login:post');
-      if (!req.body.email || !req.body.password)
+      if (!req.body.email || !req.body.pw)
         throw new HTTPError(401, 'Unauthorized', 'Invalid Email or password');
       const data = await this.repo.search({
         key: 'email',
@@ -39,19 +39,13 @@ export class UsersController {
       });
       if (!data.length)
         throw new HTTPError(401, 'Unauthorized', 'Email not found');
-      if (!(await Auth.compare(req.body.password, data[0].password)))
-        throw new HTTPError(401, 'Unauthorized', 'Password not match');
-      const payload: PayloadToken = {
-        id: data[0].id,
-        role: 'admin',
-      };
-      const token = Auth.createJWT(payload);
+
       resp.status(202);
       resp.json({
-        token,
+        results: [data],
       });
     } catch (error) {
       next(error);
     }
-  } */
+  }
 }
