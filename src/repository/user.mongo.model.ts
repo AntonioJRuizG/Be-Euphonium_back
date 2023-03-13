@@ -12,7 +12,7 @@ const userSchema = new Schema<User>({
     requiered: true,
     unique: true,
   },
-  password: {
+  pw: {
     type: String,
     requierd: true,
   },
