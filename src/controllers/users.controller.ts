@@ -1,4 +1,3 @@
-/* eslint-disable capitalized-comments */
 import { Response, Request, NextFunction } from 'express';
 import { User } from '../entities/user.js';
 
@@ -15,11 +14,8 @@ export class UsersController {
   async register(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('register:post');
-      if (!req.body.email || !req.body.password)
+      if (!req.body.email || !req.body.pw)
         throw new HTTPError(401, 'Unauthorized', 'Invalid Email or password');
-      // req.body.password = await Auth.hash(req.body.password);
-
-      // req.body.euphoniums = [];
 
       const data = await this.repo.create(req.body);
       resp.status(201);
