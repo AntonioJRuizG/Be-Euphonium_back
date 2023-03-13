@@ -1,4 +1,3 @@
-/* eslint-disable capitalized-comments */
 import { Response, Request } from 'express';
 import { User } from '../entities/user';
 import { Repo } from '../repository/repo.interface';
@@ -12,7 +11,7 @@ describe('Given UsersController', () => {
     queryId: jest.fn(),
     update: jest.fn(),
     remove: jest.fn(),
-  }; // Con esto no pide mockear todas las funciones de Repo, aunque aqui no la usemos
+  };
 
   const req = {
     body: {},
@@ -32,9 +31,7 @@ describe('Given UsersController', () => {
     test('Then it should be called if there are NOT errors', async () => {
       req.body.email = 'email';
       req.body.pw = 'test';
-      // Instanciar clase controller
       await controller.register(req, resp, next);
-
       expect(mockRepo.create).toHaveBeenCalled();
       expect(resp.status).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
@@ -64,19 +61,54 @@ describe('Given UsersController', () => {
     }); */
   });
 
-  /* describe('Given the login method from UsersController', () => {
-    test('Then json should be called if request is complete', async () => {
+  describe('Given the login method from UsersController', () => {
+    test('Then should call repo.create with the request body and return the created data as JSON if email and password are correct', async () => {
       req.body.email = 'email';
       req.body.pw = 'test';
-      (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
-      (Auth.compare as jest.Mock).mockResolvedValue(true);
+      (mockRepo.search as jest.Mock).mockResolvedValue([
+        {
+          email: 'email',
+          pw: 'test',
+        },
+      ]);
+
+      // Auth Test: (Auth.compare as jest.Mock).mockResolvedValue(true);
       await controller.login(req, resp, next);
       expect(mockRepo.search).toHaveBeenCalled();
       expect(resp.status).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
 
-    test('Then if pws do not match (Auth.compare(false)) an error should be catch and should call next()', async () => {
+    test('Then should throw an HTTPError with status 401 and message "Unauthorized" if email or password are missing', async () => {
+      req.body.email = '';
+      req.body.pw = '';
+      (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
+      // (Auth.compare as jest.Mock).mockResolvedValue(false);
+      await controller.login(req, resp, next);
+      expect(mockRepo.search).toHaveBeenCalled();
+      expect(next).toHaveBeenCalled();
+    });
+
+    test('Then should throw a HTTPError if repo.search does not find any data', async () => {
+      req.body.email = 'email';
+      req.body.pw = 'test';
+      (mockRepo.search as jest.Mock).mockResolvedValue({});
+      // (Auth.compare as jest.Mock).mockResolvedValue(false);
+      await controller.login(req, resp, next);
+      expect(mockRepo.search).toHaveBeenCalled();
+      expect(next).toHaveBeenCalled();
+    });
+
+    test('Then it should throw a HTTPError if the password is wrong', async () => {
+      req.body.email = 'email';
+      req.body.pw = 'test-pw-wrong';
+      (mockRepo.search as jest.Mock).mockResolvedValue(['test-pw']);
+      await controller.login(req, resp, next);
+      expect(mockRepo.search).toHaveBeenCalled();
+      expect(next).toHaveBeenCalled();
+    });
+
+    /* Auth Test: test('Then if pws do not match (Auth.compare(false)) an error should be catch and should call next()', async () => {
       req.body.email = 'email';
       req.body.pw = 'test';
       // (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
@@ -84,39 +116,6 @@ describe('Given UsersController', () => {
       await controller.login(req, resp, next);
       expect(mockRepo.search).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
-    });
-
-    test('Then if there is no email an error should be catch and should call next()', async () => {
-      req.body.email = '';
-      req.body.pw = 'test';
-      // (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
-      // (Auth.compare as jest.Mock).mockResolvedValue(false);
-      await controller.login(req, resp, next);
-      expect(mockRepo.search).toHaveBeenCalled();
-      expect(next).toHaveBeenCalled();
-    });
-
-    test('Then if there is no pass an error should be catch and should call next()', async () => {
-      req.body.email = 'test';
-      req.body.pw = '';
-      // (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
-      // (Auth.compare as jest.Mock).mockResolvedValue(false);
-      await controller.login(req, resp, next);
-      expect(mockRepo.search).toHaveBeenCalled();
-      expect(next).toHaveBeenCalled();
-    });
-
-    test('Then if search return an empty array an error should be catch and should call next()', async () => {
-      req.body.email = 'email';
-      req.body.pw = 'test';
-      (mockRepo.search as jest.Mock).mockResolvedValue({
-        key: 'email',
-        value: 'test-no-equal',
-      });
-      // (Auth.compare as jest.Mock).mockResolvedValue(false);
-      await controller.login(req, resp, next);
-      expect(mockRepo.search).toHaveBeenCalled();
-      expect(next).toHaveBeenCalled();
-    });
-  }); */
+    }); */
+  });
 });

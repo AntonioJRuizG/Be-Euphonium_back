@@ -22,10 +22,18 @@ describe('Given UsersMongoRepo', () => {
   describe('When the create method is used', () => {
     test('Then the create method should be called', async () => {
       (UserModel.create as jest.Mock).mockResolvedValue({ email: 'test' });
-
       const result = await repo.create({ email: 'test' });
       expect(UserModel.create).toHaveBeenCalled();
       expect(result).toEqual({ email: 'test' });
+    });
+  });
+
+  describe('When the search method is used', () => {
+    test('Then the search method should be called', async () => {
+      (UserModel.find as jest.Mock).mockResolvedValue({ email: 'test-email' });
+      const result = await repo.search({ key: 'test', value: 'test-email' });
+      expect(UserModel.find).toHaveBeenCalled();
+      expect(result).toEqual({ email: 'test-email' });
     });
   });
 });
