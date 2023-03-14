@@ -5,5 +5,6 @@ const { user, password, cluster, dbName } = config;
 
 export const dbConnect = () => {
   const uri = `mongodb+srv://${user}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority`;
+  console.log(uri);
   return mongoose.connect(uri);
 };
