@@ -16,12 +16,12 @@ export class UsersController {
       debug('register:post', req.body.email, req.body);
       if (!req.body.email || !req.body.pw)
         throw new HTTPError(401, 'Unauthorized', 'Invalid Email or password');
-      const data2 = await this.repo.search({
+      /* Add this code to manage user already exists error: const data2 = await this.repo.search({
         key: 'email',
         value: req.body.email,
       });
       if (data2.length)
-        throw new HTTPError(409, 'Email already exists', 'User already in db');
+        throw new HTTPError(409, 'Email already exists', 'User already in db'); */
       const data = await this.repo.create(req.body);
       resp.status(201);
       resp.json({

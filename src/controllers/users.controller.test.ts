@@ -20,7 +20,7 @@ describe('Given UsersController', () => {
 
   const resp = {
     json: jest.fn(),
-    status: jest.fn(), // Moquear status tb
+    status: jest.fn(),
   } as unknown as Response;
 
   const next = jest.fn();
