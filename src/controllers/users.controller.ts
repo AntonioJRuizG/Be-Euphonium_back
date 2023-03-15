@@ -1,9 +1,9 @@
 import { Response, Request, NextFunction } from 'express';
 import { User } from '../entities/user.js';
-
 import createDebug from 'debug';
 import { Repo } from '../repository/repo.interface.js';
 import { HTTPError } from '../errors/custom.error.js';
+import { Auth, PayloadToken } from '../services/auth.js';
 const debug = createDebug('W6:controller:users');
 
 export class UsersController {
@@ -22,6 +22,7 @@ export class UsersController {
       });
       if (data2.length)
         throw new HTTPError(409, 'Email already exists', 'User already in db'); */
+      req.body.passwd = await Auth.hash(req.body.passwd);
       const data = await this.repo.create(req.body);
       resp.status(201);
       resp.json({
@@ -44,11 +45,17 @@ export class UsersController {
       });
       if (!data.length)
         throw new HTTPError(401, 'Unauthorized', 'Email not found');
-      if (req.body.pw !== data[0].pw)
-        throw new HTTPError(401, 'Unauthorized', 'Invalid email or password');
+      if (!(await Auth.compare(req.body.passwd, data[0].pw)))
+        throw new HTTPError(401, 'Unauthorized', 'Password not match');
+      const payload: PayloadToken = {
+        id: data[0].id,
+        email: data[0].email,
+        role: 'admin',
+      };
+      const token = Auth.createJWT(payload);
       resp.status(202);
       resp.json({
-        results: [data],
+        token,
       });
     } catch (error) {
       next(error);
