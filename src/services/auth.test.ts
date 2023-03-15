@@ -12,10 +12,6 @@ const mockPayloadToken = {
 } as PayloadToken;
 
 describe('Given Auth', () => {
-  /* SafterEach(() => {
-    jest.clearAllMocks();
-  }); */
-
   describe('When createJWT static method is called', () => {
     test('Then the sign function should sign a given payload into a JSON Web Token string payload', () => {
       Auth.createJWT(mockPayloadToken);
