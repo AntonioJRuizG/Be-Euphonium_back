@@ -7,5 +7,5 @@ export const config = {
   cluster: process.env.DB_CLUSTER,
   dbName: process.env.DB_NAME,
 
-  jwtSecret: process.env.SECRET,
+  jwtSecret: process.env.JWT_SECRET,
 };

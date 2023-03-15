@@ -13,7 +13,7 @@ describe('Given UsersMongoRepo', () => {
   });
 
   describe('When getInstance is called', () => {
-    it('Then it should return a single instance of UsersMongoRepo', () => {
+    test('Then it should return a single instance of UsersMongoRepo', () => {
       const repo = UsersMongoRepo.getInstance();
       expect(repo).toBeInstanceOf(UsersMongoRepo);
     });
