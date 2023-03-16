@@ -45,7 +45,7 @@ export class UsersController {
       });
       if (!data.length)
         throw new HTTPError(401, 'Unauthorized', 'Email not found');
-      if (!(await Auth.compare(req.body.passwd, data[0].pw)))
+      if (!(await Auth.compare(req.body.pw, data[0].pw)))
         throw new HTTPError(401, 'Unauthorized', 'Password not match');
       const payload: PayloadToken = {
         id: data[0].id,
