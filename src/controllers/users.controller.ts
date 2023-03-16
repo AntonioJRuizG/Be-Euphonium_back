@@ -22,7 +22,7 @@ export class UsersController {
       });
       if (data2.length)
         throw new HTTPError(409, 'Email already exists', 'User already in db'); */
-      req.body.passwd = await Auth.hash(req.body.passwd);
+      req.body.pw = await Auth.hash(req.body.pw);
       const data = await this.repo.create(req.body);
       resp.status(201);
       resp.json({
