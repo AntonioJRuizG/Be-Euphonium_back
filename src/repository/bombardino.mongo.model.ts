@@ -11,7 +11,7 @@ const bombardinoSchema = new Schema<Bombardino>({
     type: String,
     requiered: true,
   },
-  model: {
+  instrumentModel: {
     type: String,
     requiered: true,
   },
@@ -42,7 +42,6 @@ bombardinoSchema.set('toJSON', {
     returnedObject.id = returnedObject._id;
     delete returnedObject.__v;
     delete returnedObject._id;
-    delete returnedObject.password;
   },
 });
 

@@ -4,7 +4,7 @@ export type Bombardino = {
   id: string;
   alias: string;
   manufacturer: string;
-  model: string;
+  instrumentModel: string;
   valves: number;
   level: string;
   marchingBand: boolean;
