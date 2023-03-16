@@ -16,6 +16,7 @@ const userSchema = new Schema<User>({
     type: String,
     requierd: true,
   },
+  bombardinos: [{ type: Schema.Types.ObjectId, ref: 'Bombardino' }],
 });
 
 userSchema.set('toJSON', {

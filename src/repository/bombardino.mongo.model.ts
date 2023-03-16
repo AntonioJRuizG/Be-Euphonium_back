@@ -1,7 +1,12 @@
 import { model, Schema } from 'mongoose';
-import { Bombardino } from '../entities/bombardino';
+import { Bombardino } from '../entities/bombardino.js';
 
 const bombardinoSchema = new Schema<Bombardino>({
+  alias: {
+    type: String,
+    requiered: true,
+    unique: true,
+  },
   manufacturer: {
     type: String,
     requiered: true,
