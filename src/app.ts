@@ -24,8 +24,8 @@ app.use('/users', usersRouter);
 
 app.get('/', (_req, resp) => {
   resp.json({
-    info: 'Euphoniums',
-    endpoints: { users: '/users', euphoniums: '/euphoniums' },
+    info: 'Bombardinos',
+    endpoints: { users: '/users', bombardinos: '/bombardinos' },
   });
 });
 
