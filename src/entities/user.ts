@@ -1,4 +1,4 @@
-import { Bombardino } from './bombardino';
+import { Bombardino } from './bombardino.js';
 
 export type User = {
   id: string;
