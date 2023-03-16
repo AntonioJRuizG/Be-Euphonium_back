@@ -2,7 +2,6 @@ import createDebug from 'debug';
 import { Bombardino } from '../entities/bombardino.js';
 import { HTTPError } from '../errors/custom.error.js';
 import { BombardinoModel } from './bombardino.mongo.model.js';
-
 import { Repo } from './repo.interface.js';
 const debug = createDebug('W6:bombardinos_repo');
 
@@ -24,7 +23,7 @@ export class BombardinosMongoRepo implements Repo<Bombardino> {
   async query(): Promise<Bombardino[]> {
     debug('query');
     const data = await BombardinoModel.find()
-      .populate('creator', { bombardinos: 0, name: 0, email: 0 })
+      .populate('creator', { bombardinos: 0 })
       .exec();
     return data;
   }
@@ -32,7 +31,7 @@ export class BombardinosMongoRepo implements Repo<Bombardino> {
   async queryId(id: string): Promise<Bombardino> {
     debug('queryId');
     const data = await BombardinoModel.findById(id)
-      .populate('creator', { bombardinos: 0, name: 0, email: 0 })
+      .populate('creator', { bombardinos: 0 })
       .exec();
     if (!data) throw new HTTPError(404, 'Not found', 'ID not found in queryID');
     return data;
@@ -41,18 +40,14 @@ export class BombardinosMongoRepo implements Repo<Bombardino> {
   async search(query: { key: string; value: unknown }) {
     debug('search');
     const data = await BombardinoModel.find({ [query.key]: query.value })
-      .populate('creator', { bombardinos: 0, name: 0, email: 0 })
+      .populate('creator', { bombardinos: 0 })
       .exec();
     return data;
   }
 
   async create(info: Partial<Bombardino>): Promise<Bombardino> {
     debug('create');
-    const data = (await BombardinoModel.create(info)).populate('creator', {
-      bombardinos: 0,
-      name: 0,
-      email: 0,
-    });
+    const data = await BombardinoModel.create(info);
     return data;
   }
 
@@ -61,7 +56,7 @@ export class BombardinosMongoRepo implements Repo<Bombardino> {
     const data = await BombardinoModel.findByIdAndUpdate(info.id, info, {
       new: true,
     })
-      .populate('creator', { bombardinos: 0, name: 0, email: 0 })
+      .populate('creator', { bombardinos: 0 })
       .exec();
     if (!data) throw new HTTPError(404, 'Not found', 'ID not found in update');
     return data;
