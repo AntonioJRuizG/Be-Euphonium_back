@@ -9,7 +9,7 @@ export default {
     'index.ts',
     'app.ts',
     'src/config.ts',
-    'user.mongo.model.ts',
+    '.mongo.model.ts',
     'routers',
   ],
 };
