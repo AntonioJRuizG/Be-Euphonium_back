@@ -28,4 +28,4 @@ userSchema.set('toJSON', {
   },
 });
 
-export const UserModel = model('User', userSchema, 'users');
+export const UserModel = model('User', userSchema, 'usuarios');
