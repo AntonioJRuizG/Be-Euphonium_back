@@ -2,10 +2,10 @@ import createDebug from 'debug';
 import { Bombardino } from '../entities/bombardino.js';
 import { HTTPError } from '../errors/custom.error.js';
 import { BombardinoModel } from './bombardino.mongo.model.js';
-import { Repo } from './repo.interface.js';
+import { RepoPlus } from './repo.interface.js';
 const debug = createDebug('W6:bombardinos_repo');
 
-export class BombardinosMongoRepo implements Repo<Bombardino> {
+export class BombardinosMongoRepo implements RepoPlus<Bombardino> {
   private static instance: BombardinosMongoRepo;
 
   public static getInstance(): BombardinosMongoRepo {

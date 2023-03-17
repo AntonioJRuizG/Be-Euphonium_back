@@ -1,13 +1,13 @@
 import { Response, Request, NextFunction } from 'express';
 import { User } from '../entities/user.js';
 import createDebug from 'debug';
-import { Repo } from '../repository/repo.interface.js';
+import { RepoSmall } from '../repository/repo.interface.js';
 import { HTTPError } from '../errors/custom.error.js';
 import { Auth, PayloadToken } from '../services/auth.js';
 const debug = createDebug('W6:controller:users');
 
 export class UsersController {
-  constructor(public repo: Repo<User>) {
+  constructor(public repo: RepoSmall<User>) {
     debug('Instantiate');
   }
 
