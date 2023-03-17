@@ -1,13 +1,13 @@
 import { Response, Request } from 'express';
 import { User } from '../entities/user';
-import { Repo } from '../repository/repo.interface';
+import { RepoSmall } from '../repository/repo.interface';
 import { Auth } from '../services/auth';
 import { UsersController } from './users.controller';
 
 jest.mock('../services/auth');
 
 describe('Given UsersController', () => {
-  const mockRepo: Repo<User> = {
+  const mockRepo: RepoSmall<User> = {
     create: jest.fn(),
     query: jest.fn(),
     search: jest.fn(),

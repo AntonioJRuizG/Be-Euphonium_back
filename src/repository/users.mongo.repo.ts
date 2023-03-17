@@ -1,10 +1,10 @@
 import createDebug from 'debug';
 import { User } from '../entities/user.js';
-import { Repo } from './repo.interface.js';
+import { RepoSmall } from './repo.interface.js';
 import { UserModel } from './user.mongo.model.js';
 const debug = createDebug('W6:users_repo');
 
-export class UsersMongoRepo implements Repo<User> {
+export class UsersMongoRepo implements RepoSmall<User> {
   private static instance: UsersMongoRepo;
 
   public static getInstance(): UsersMongoRepo {
