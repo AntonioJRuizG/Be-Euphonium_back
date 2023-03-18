@@ -4,6 +4,7 @@ import createDebug from 'debug';
 import express from 'express';
 import { usersRouter } from './routers/users.router.js';
 import { errorsMiddleware } from './middlewares/errors.middleware.js';
+import { bombardinosRouter } from './routers/bombardinos.router.js';
 const debug = createDebug('W6:app');
 
 export const app = express();
@@ -20,12 +21,13 @@ debug('running');
 
 app.use(express.static('public'));
 
-app.use('/users', usersRouter);
+app.use('/usuarios', usersRouter);
+app.use('/bombardinos', bombardinosRouter);
 
 app.get('/', (_req, resp) => {
   resp.json({
-    info: 'Bombardinos',
-    endpoints: { users: '/users', bombardinos: '/bombardinos' },
+    info: 'La comunidad del Bombardino',
+    bombardinos: '/bombardinos',
   });
 });
 
