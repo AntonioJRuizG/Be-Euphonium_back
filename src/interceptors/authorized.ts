@@ -22,8 +22,6 @@ export async function authorized(
     const userId = req.info.id;
     const euphoniumId = req.params.id;
     const euphonium = await repoBombardino.queryId(euphoniumId);
-    debug('Euphonium', euphonium.creator);
-    debug('User', userId);
     if (euphonium.creator.id !== userId)
       throw new HTTPError(401, 'Not your euphonium', 'Not authorized');
     next();
