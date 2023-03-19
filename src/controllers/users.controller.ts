@@ -34,16 +34,13 @@ export class UsersController {
   }
 
   async login(req: Request, resp: Response, next: NextFunction) {
-    debug('login:request', req.body);
     try {
-      debug('login:post'); // Temp_debug
       if (!req.body.email || !req.body.pw)
         throw new HTTPError(401, 'Unauthorized', 'Invalid email or password');
       const data = await this.repo.search({
         key: 'email',
         value: req.body.email,
       });
-      debug('login:repo_search_data ' + data); // Temp_debug
       if (!data.length)
         throw new HTTPError(401, 'Unauthorized', 'Email not found');
       if (!(await Auth.compare(req.body.pw, data[0].pw)))

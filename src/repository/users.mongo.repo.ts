@@ -26,9 +26,8 @@ export class UsersMongoRepo implements RepoSmall<User> {
   }
 
   async search(query: { key: string; value: unknown }) {
-    debug('search' + query);
+    debug('search');
     const data = await UserModel.find({ [query.key]: query.value });
-    debug('repo_search_data ' + data); // Temp_debug
     return data;
   }
 }
