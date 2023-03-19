@@ -9,9 +9,9 @@ export interface RequestPlus extends Request {
   info?: PayloadToken;
 }
 
-export function logged(req: RequestPlus, _resp: Response, next: NextFunction) {
+export function logged(req: RequestPlus, resp: Response, next: NextFunction) {
   try {
-    debug('called');
+    debug('Called');
     const authHeader = req.get('Authorization');
     if (!authHeader)
       throw new HTTPError(498, 'Token invalid', 'Not value in auth header');
