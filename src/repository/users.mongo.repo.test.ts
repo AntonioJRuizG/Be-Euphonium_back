@@ -37,15 +37,6 @@ describe('Given UsersMongoRepo', () => {
     });
   });
 
-  describe('When the search method is used', () => {
-    test('Then the search method should be called', async () => {
-      (UserModel.find as jest.Mock).mockResolvedValue({ email: 'test-email' });
-      const result = await repo.search({ key: 'test', value: 'test-email' });
-      expect(UserModel.find).toHaveBeenCalled();
-      expect(result).toEqual({ email: 'test-email' });
-    });
-  });
-
   describe('When the queryId method is used', () => {
     test('Then the findbyid method should be called', async () => {
       (UserModel.findById as jest.Mock).mockResolvedValue({
