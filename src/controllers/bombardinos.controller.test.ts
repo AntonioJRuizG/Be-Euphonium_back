@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { Bombardino } from '../entities/bombardino';
 import { User } from '../entities/user';
+import { RequestPlus } from '../interceptors/logged';
 import { RepoPlus, RepoSmall } from '../repository/repo.interface';
 import { BombardinosController } from './bombardinos.controller';
 
@@ -33,7 +34,7 @@ describe('Given ThingsController', () => {
     info: {
       id: 'test',
     },
-  } as unknown as Request;
+  } as unknown as RequestPlus;
 
   const resp = {
     json: jest.fn(),
@@ -70,7 +71,6 @@ describe('Given ThingsController', () => {
 
     test('Then it should call next if there are errors', async () => {
       (mockRepoBombardinos.queryId as jest.Mock).mockRejectedValue(new Error());
-
       await controller.get(req, resp, next);
       expect(mockRepoBombardinos.queryId).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
@@ -78,26 +78,45 @@ describe('Given ThingsController', () => {
   });
 
   describe('Given post method', () => {
-    test('Then it should have been called if there are NOT errors', async () => {
+    test('Then it should call resp.json if there is req.info.id', async () => {
       (mockRepoUsers.queryId as jest.Mock).mockResolvedValue({
+        name: 'test',
         email: 'test',
-        euphoniums: [''],
+        bombardinos: [''],
       });
+      (mockRepoBombardinos.create as jest.Mock).mockResolvedValue({
+        id: 'test-id-1',
+        manufacturer: 'test',
+        model: 'test',
+      });
+      (mockRepoUsers.update as jest.Mock).mockResolvedValue({
+        name: 'test',
+        email: 'test',
+        bombardinos: ['test-id-1'],
+      });
+
+      await controller.post(req, resp, next);
+      expect(resp.json).toHaveBeenCalled();
+    });
+
+    test('Then it should thorw error if there is no user id', async () => {
+      const req = {
+        body: {
+          creator: { id: 'test' } as User,
+        },
+        params: {
+          id: 'test',
+        },
+        info: {},
+      } as unknown as RequestPlus;
+      (mockRepoUsers.queryId as jest.Mock).mockResolvedValue({});
       (mockRepoBombardinos.create as jest.Mock).mockResolvedValue({
         model: 'test',
       });
       (mockRepoUsers.update as jest.Mock).mockResolvedValue({ email: 'test' });
 
       await controller.post(req, resp, next);
-
       expect(resp.json).toHaveBeenCalled();
-    });
-
-    test('Then it should return an error if post does not work', async () => {
-      (mockRepoBombardinos.create as jest.Mock).mockRejectedValue(
-        new Error('')
-      );
-      await controller.post(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
   });
