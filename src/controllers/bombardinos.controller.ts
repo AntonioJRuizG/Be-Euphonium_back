@@ -3,6 +3,8 @@ import createDebug from 'debug';
 import { User } from '../entities/user.js';
 import { Bombardino } from '../entities/bombardino.js';
 import { RepoPlus, RepoSmall } from '../repository/repo.interface.js';
+import { RequestPlus } from '../interceptors/logged.js';
+import { HTTPError } from '../errors/custom.error.js';
 
 const debug = createDebug('W6:controller:bombardinos');
 
@@ -38,19 +40,6 @@ export class BombardinosController {
     }
   }
 
-  async post(req: Request, resp: Response, next: NextFunction) {
-    try {
-      debug('post');
-      const newEuphonium = await this.bombardinosRepo.create(req.body);
-      resp.json({
-        results: [newEuphonium],
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  /* Uncomment to have post method that save creator property.
   async post(req: RequestPlus, resp: Response, next: NextFunction) {
     try {
       debug('post');
@@ -67,7 +56,7 @@ export class BombardinosController {
     } catch (error) {
       next(error);
     }
-  } */
+  }
 
   async patch(req: Request, resp: Response, next: NextFunction) {
     try {

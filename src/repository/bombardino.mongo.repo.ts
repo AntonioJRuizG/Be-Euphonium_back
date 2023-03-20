@@ -40,14 +40,13 @@ export class BombardinosMongoRepo implements RepoPlus<Bombardino> {
   async search(query: { key: string; value: unknown }) {
     debug('search');
     const data = await BombardinoModel.find({ [query.key]: query.value })
-      .populate('creator', { bombardinos: 0 })
+      .populate('creator')
       .exec();
     return data;
   }
 
   async create(info: Partial<Bombardino>): Promise<Bombardino> {
-    debug('create');
-    const data = await BombardinoModel.create(info);
+    const data = (await BombardinoModel.create(info)).populate('creator');
     return data;
   }
 
