@@ -46,7 +46,6 @@ export class BombardinosMongoRepo implements RepoPlus<Bombardino> {
   }
 
   async create(info: Partial<Bombardino>): Promise<Bombardino> {
-    debug('create', { bombardinos: 0 });
     const data = (await BombardinoModel.create(info)).populate('creator');
     return data;
   }

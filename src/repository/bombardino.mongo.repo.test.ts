@@ -10,6 +10,10 @@ const mockPopulate = (mockPopulateParameter: unknown) => ({
   })),
 });
 
+const mockPopulateWOExec = (mockPopulateParameter: unknown) => ({
+  populate: jest.fn().mockResolvedValue(mockPopulateParameter),
+});
+
 describe('Given BombardinosMongoRepo', () => {
   const repo = BombardinosMongoRepo.getInstance();
   test('Then it should be instantiated', () => {
@@ -58,7 +62,9 @@ describe('Given BombardinosMongoRepo', () => {
 
   describe('When I use create', () => {
     test('Then should return the data', async () => {
-      (BombardinoModel.create as jest.Mock).mockResolvedValue({ id: '1' });
+      (BombardinoModel.create as jest.Mock).mockImplementation(() =>
+        mockPopulateWOExec({ id: '1' })
+      );
       const result = await repo.create({ id: '1' });
       expect(BombardinoModel.create).toHaveBeenCalled();
       expect(result).toEqual({ id: '1' });
