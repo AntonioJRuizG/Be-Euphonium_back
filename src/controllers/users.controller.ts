@@ -41,6 +41,7 @@ export class UsersController {
         key: 'email',
         value: req.body.email,
       });
+
       if (!data.length)
         throw new HTTPError(401, 'Unauthorized', 'Email not found');
       if (!(await Auth.compare(req.body.pw, data[0].pw)))
@@ -51,9 +52,12 @@ export class UsersController {
         role: 'admin',
       };
       const token = Auth.createJWT(payload);
+      const userData = await this.repo.queryId(data[0].id);
+
       resp.status(202);
       resp.json({
         token,
+        user: userData,
       });
     } catch (error) {
       next(error);
