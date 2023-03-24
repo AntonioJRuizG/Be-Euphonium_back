@@ -10,7 +10,5 @@ debug('loaded');
 const repo = UsersMongoRepo.getInstance();
 const controller = new UsersController(repo);
 
-usersRouter.get('/', controller.get.bind(controller));
-usersRouter.get('/:id', controller.get.bind(controller));
 usersRouter.post('/registro', controller.register.bind(controller));
 usersRouter.post('/acceso', controller.login.bind(controller));
