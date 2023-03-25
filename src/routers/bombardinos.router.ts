@@ -11,7 +11,10 @@ const bombardinosRepo = BombardinosMongoRepo.getInstance();
 const usersRepo = UsersMongoRepo.getInstance();
 const controller = new BombardinosController(usersRepo, bombardinosRepo);
 
-bombardinosRouter.get('/', controller.getAll.bind(controller));
+bombardinosRouter.get('/', controller.getPaginated.bind(controller));
+
+// Tmp bombardinosRouter.get('/', controller.getAll.bind(controller));
+
 bombardinosRouter.get('/:id', controller.get.bind(controller));
 bombardinosRouter.post('/', logged, controller.post.bind(controller));
 bombardinosRouter.patch(

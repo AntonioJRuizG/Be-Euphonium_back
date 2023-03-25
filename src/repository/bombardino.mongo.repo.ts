@@ -28,6 +28,17 @@ export class BombardinosMongoRepo implements RepoPlus<Bombardino> {
     return data;
   }
 
+  async queryPaginated(offset: string): Promise<Bombardino[]> {
+    debug('query');
+    const limit = 4;
+    const data = await BombardinoModel.find()
+      .limit(limit)
+      .skip(limit * Number(offset) - limit)
+      .populate('creator', { bombardinos: 0 })
+      .exec();
+    return data;
+  }
+
   async queryId(id: string): Promise<Bombardino> {
     debug('queryId');
     const data = await BombardinoModel.findById(id)

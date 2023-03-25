@@ -4,6 +4,7 @@ import { authorized } from './authorized';
 import { RequestPlus } from './logged';
 
 const mockBombardinoRepo: BombardinosMongoRepo = {
+  queryPaginated: jest.fn(),
   create: jest.fn(),
   query: jest.fn(),
   search: jest.fn(),

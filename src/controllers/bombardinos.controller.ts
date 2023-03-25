@@ -28,10 +28,24 @@ export class BombardinosController {
     }
   }
 
-  async getAll(_req: Request, resp: Response, next: NextFunction) {
+  async getAll(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('getAll');
       const data = await this.bombardinosRepo.query();
+      resp.json({
+        results: data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getPaginated(req: Request, resp: Response, next: NextFunction) {
+    try {
+      debug('getPaginated');
+      const data = await this.bombardinosRepo.queryPaginated(
+        req.query.offset as string
+      );
       resp.json({
         results: data,
       });
