@@ -14,6 +14,16 @@ const mockPopulateWOExec = (mockPopulateParameter: unknown) => ({
   populate: jest.fn().mockResolvedValue(mockPopulateParameter),
 });
 
+const mockLimitSkipPopulateExec = (mockPopulateParameter: unknown) => ({
+  limit: jest.fn().mockImplementation(() => ({
+    skip: jest.fn().mockImplementation(() => ({
+      populate: jest.fn().mockImplementation(() => ({
+        exec: jest.fn().mockResolvedValue(mockPopulateParameter),
+      })),
+    })),
+  })),
+});
+
 describe('Given BombardinosMongoRepo', () => {
   const repo = BombardinosMongoRepo.getInstance();
   test('Then it should be instantiated', () => {
@@ -27,6 +37,25 @@ describe('Given BombardinosMongoRepo', () => {
       );
       const result = await repo.query();
       expect(result).toEqual([{ id: '1' }, { id: '2' }]);
+    });
+  });
+
+  describe('When I use queryPaginated', () => {
+    test('Then should return the data', async () => {
+      (BombardinoModel.find as jest.Mock).mockImplementation(() =>
+        mockLimitSkipPopulateExec([{ id: '1' }, { id: '2' }])
+      );
+      const result = await repo.queryPaginated('test-offset');
+      expect(BombardinoModel.find).toHaveBeenCalled();
+      expect(result).toEqual([{ id: '1' }, { id: '2' }]);
+    });
+
+    test('Then it should throw error if no date returns', async () => {
+      (BombardinoModel.findById as jest.Mock).mockImplementation(() =>
+        mockPopulate(null)
+      );
+
+      expect(async () => repo.queryId('')).rejects.toThrow();
     });
   });
 
