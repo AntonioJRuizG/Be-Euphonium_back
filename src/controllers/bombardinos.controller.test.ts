@@ -35,6 +35,10 @@ describe('Given ThingsController', () => {
     info: {
       id: 'test',
     },
+    query: {
+      skip: 10,
+      limit: 10,
+    },
   } as unknown as RequestPlus;
 
   const resp = {
@@ -47,6 +51,21 @@ describe('Given ThingsController', () => {
     mockRepoUsers,
     mockRepoBombardinos
   );
+
+  describe('Given get method', () => {
+    test('Then it should have been called if there are NOT errors', async () => {
+      await controller.get(req, resp, next);
+      expect(mockRepoBombardinos.queryId).toHaveBeenCalled();
+      expect(resp.json).toHaveBeenCalled();
+    });
+
+    test('Then it should call next if there are errors', async () => {
+      (mockRepoBombardinos.queryId as jest.Mock).mockRejectedValue(new Error());
+      await controller.get(req, resp, next);
+      expect(mockRepoBombardinos.queryId).toHaveBeenCalled();
+      expect(next).toHaveBeenCalled();
+    });
+  });
 
   describe('Given getAll method', () => {
     test('Then it should be called if there are NOT errors', async () => {
@@ -63,17 +82,19 @@ describe('Given ThingsController', () => {
     });
   });
 
-  describe('Given get method', () => {
-    test('Then it should have been called if there are NOT errors', async () => {
-      await controller.get(req, resp, next);
-      expect(mockRepoBombardinos.queryId).toHaveBeenCalled();
+  describe('Given getPaginated method', () => {
+    test('Then it should be called if there are NOT errors', async () => {
+      await controller.getPaginated(req, resp, next);
+      expect(mockRepoBombardinos.queryPaginated).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
 
-    test('Then it should call next if there are errors', async () => {
-      (mockRepoBombardinos.queryId as jest.Mock).mockRejectedValue(new Error());
-      await controller.get(req, resp, next);
-      expect(mockRepoBombardinos.queryId).toHaveBeenCalled();
+    test('Then it should have been called if there are errors', async () => {
+      (mockRepoBombardinos.queryPaginated as jest.Mock).mockRejectedValue(
+        new Error()
+      );
+      await controller.getPaginated(req, resp, next);
+      expect(mockRepoBombardinos.queryPaginated).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
   });
