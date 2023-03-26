@@ -30,11 +30,11 @@ export class EuphoniumsMongoRepo implements RepoEuph<Euphonium> {
 
   async queryFiltered(
     offset: string,
-    levelValue: string
+    materialValue: string
   ): Promise<Euphonium[]> {
     debug('queryFiltered');
     const limit = 4;
-    const data = await EuphoniumModel.find({ level: levelValue })
+    const data = await EuphoniumModel.find({ material: materialValue })
       .limit(limit)
       .skip(limit * Number(offset) - limit)
       .populate('creator', { euphoniums: 0 })

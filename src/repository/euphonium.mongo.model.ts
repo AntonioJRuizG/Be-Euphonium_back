@@ -19,7 +19,7 @@ const euphoniumSchema = new Schema<Euphonium>({
     type: Number,
     requierd: false,
   },
-  level: {
+  material: {
     type: String,
     requiered: false,
   },

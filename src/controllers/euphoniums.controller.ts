@@ -59,7 +59,7 @@ export class EuphoniumsController {
       debug('getFiltered');
       const data = await this.euphoniumsRepo.queryFiltered(
         req.query.offset as string,
-        req.query.level as string
+        req.query.material as string
       );
       resp.json({
         results: data,

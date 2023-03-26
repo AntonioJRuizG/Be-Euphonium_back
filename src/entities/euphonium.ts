@@ -6,7 +6,7 @@ export type Euphonium = {
   manufacturer: string;
   instrumentModel: string;
   valves: number;
-  level: string;
+  material: string;
   marchingBand: boolean;
   image: string;
   creator: User;
