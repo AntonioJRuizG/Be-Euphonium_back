@@ -16,7 +16,7 @@ export class UsersController {
       if (!req.body.email || !req.body.password)
         throw new HTTPError(401, 'Unauthorized', 'Invalid Email or password');
       /* Temp: Manage "already registered" error:
-       const data2 = await this.repo.search({
+        const data2 = await this.repo.search({
         key: 'email',
         value: req.body.email,
       });
