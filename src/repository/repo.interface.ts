@@ -2,6 +2,7 @@ export interface RepoPlus<T> {
   query(): Promise<T[]>;
   queryId(id: string): Promise<T>;
   queryPaginated(offset: string): Promise<T[]>;
+  queryFiltered(offset: string, levelValue: string): Promise<T[]>;
   search(query: { key: string; value: unknown }): Promise<T[]>;
   create(info: Partial<T>): Promise<T>;
   update(info: Partial<T>): Promise<T>;

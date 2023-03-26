@@ -17,6 +17,7 @@ describe('Given ThingsController', () => {
 
   const mockRepoBombardinos: RepoPlus<Bombardino> = {
     queryPaginated: jest.fn(),
+    queryFiltered: jest.fn(),
     create: jest.fn(),
     query: jest.fn(),
     search: jest.fn(),
