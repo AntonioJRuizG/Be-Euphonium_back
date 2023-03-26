@@ -4,7 +4,7 @@ import createDebug from 'debug';
 import { RepoSmall } from '../repository/repo.interface.js';
 import { HTTPError } from '../errors/custom.error.js';
 import { Auth, PayloadToken } from '../services/auth.js';
-const debug = createDebug('W6:controller:users');
+const debug = createDebug('BC:controller:users');
 
 export class UsersController {
   constructor(public repo: RepoSmall<User>) {
