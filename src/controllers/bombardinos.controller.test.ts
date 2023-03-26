@@ -17,6 +17,7 @@ describe('Given ThingsController', () => {
 
   const mockRepoBombardinos: RepoPlus<Bombardino> = {
     queryPaginated: jest.fn(),
+    queryFiltered: jest.fn(),
     create: jest.fn(),
     query: jest.fn(),
     search: jest.fn(),
@@ -95,6 +96,23 @@ describe('Given ThingsController', () => {
       );
       await controller.getPaginated(req, resp, next);
       expect(mockRepoBombardinos.queryPaginated).toHaveBeenCalled();
+      expect(next).toHaveBeenCalled();
+    });
+  });
+
+  describe('Given getFiltered method', () => {
+    test('Then it should be called if there are NOT errors', async () => {
+      await controller.getFiltered(req, resp, next);
+      expect(mockRepoBombardinos.queryFiltered).toHaveBeenCalled();
+      expect(resp.json).toHaveBeenCalled();
+    });
+
+    test('Then it should have been called if there are errors', async () => {
+      (mockRepoBombardinos.queryFiltered as jest.Mock).mockRejectedValue(
+        new Error()
+      );
+      await controller.getFiltered(req, resp, next);
+      expect(mockRepoBombardinos.queryFiltered).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
   });

@@ -54,6 +54,21 @@ export class BombardinosController {
     }
   }
 
+  async getFiltered(req: Request, resp: Response, next: NextFunction) {
+    try {
+      debug('getFiltered');
+      const data = await this.bombardinosRepo.queryFiltered(
+        req.query.offset as string,
+        req.query.level as string
+      );
+      resp.json({
+        results: data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async post(req: RequestPlus, resp: Response, next: NextFunction) {
     try {
       debug('post');

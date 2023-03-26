@@ -5,6 +5,7 @@ import { RequestPlus } from './logged';
 
 const mockBombardinoRepo: BombardinosMongoRepo = {
   queryPaginated: jest.fn(),
+  queryFiltered: jest.fn(),
   create: jest.fn(),
   query: jest.fn(),
   search: jest.fn(),

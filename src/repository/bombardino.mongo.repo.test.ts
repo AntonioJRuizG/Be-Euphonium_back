@@ -40,6 +40,25 @@ describe('Given BombardinosMongoRepo', () => {
     });
   });
 
+  describe('When I use queryFiltered', () => {
+    test('Then should return the data', async () => {
+      (BombardinoModel.find as jest.Mock).mockImplementation(() =>
+        mockLimitSkipPopulateExec([{ id: '1' }, { id: '2' }])
+      );
+      const result = await repo.queryFiltered('test-offset', 'test-value');
+      expect(BombardinoModel.find).toHaveBeenCalled();
+      expect(result).toEqual([{ id: '1' }, { id: '2' }]);
+    });
+
+    test('Then it should throw error if no data returns', async () => {
+      (BombardinoModel.find as jest.Mock).mockImplementation(() =>
+        mockLimitSkipPopulateExec(null)
+      );
+
+      expect(async () => repo.queryFiltered('', '')).rejects.toThrow();
+    });
+  });
+
   describe('When I use queryPaginated', () => {
     test('Then should return the data', async () => {
       (BombardinoModel.find as jest.Mock).mockImplementation(() =>
@@ -50,12 +69,12 @@ describe('Given BombardinosMongoRepo', () => {
       expect(result).toEqual([{ id: '1' }, { id: '2' }]);
     });
 
-    test('Then it should throw error if no date returns', async () => {
-      (BombardinoModel.findById as jest.Mock).mockImplementation(() =>
-        mockPopulate(null)
+    test('Then it should throw error if no data returns', async () => {
+      (BombardinoModel.find as jest.Mock).mockImplementation(() =>
+        mockLimitSkipPopulateExec(null)
       );
 
-      expect(async () => repo.queryId('')).rejects.toThrow();
+      expect(async () => repo.queryPaginated('')).rejects.toThrow();
     });
   });
 
@@ -69,7 +88,7 @@ describe('Given BombardinosMongoRepo', () => {
       expect(result).toEqual({ id: '1' });
     });
 
-    test('Then it should throw error if no date returns', async () => {
+    test('Then it should throw error if no data returns', async () => {
       (BombardinoModel.findById as jest.Mock).mockImplementation(() =>
         mockPopulate(null)
       );
