@@ -30,7 +30,7 @@ describe('Given EuphoniumsMongoRepo', () => {
     expect(repo).toBeInstanceOf(EuphoniumsMongoRepo);
   });
 
-  describe('When I use query', () => {
+  describe('When query method is used', () => {
     test('Then should return the data', async () => {
       (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockPopulate([{ id: '1' }, { id: '2' }])
@@ -40,7 +40,7 @@ describe('Given EuphoniumsMongoRepo', () => {
     });
   });
 
-  describe('When I use queryFiltered', () => {
+  describe('When the queryFiltered method is used', () => {
     test('Then should return the data', async () => {
       (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockLimitSkipPopulateExec([{ id: '1' }, { id: '2' }])
@@ -54,12 +54,11 @@ describe('Given EuphoniumsMongoRepo', () => {
       (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockLimitSkipPopulateExec(null)
       );
-
       expect(async () => repo.queryFiltered('', '')).rejects.toThrow();
     });
   });
 
-  describe('When I use queryPaginated', () => {
+  describe('When the queryPaginated method is used', () => {
     test('Then should return the data', async () => {
       (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockLimitSkipPopulateExec([{ id: '1' }, { id: '2' }])
@@ -73,12 +72,11 @@ describe('Given EuphoniumsMongoRepo', () => {
       (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockLimitSkipPopulateExec(null)
       );
-
       expect(async () => repo.queryPaginated('')).rejects.toThrow();
     });
   });
 
-  describe('When I use queryId', () => {
+  describe('When the queryId method is used', () => {
     test('Then should return the data', async () => {
       (EuphoniumModel.findById as jest.Mock).mockImplementation(() =>
         mockPopulate({ id: '1' })
@@ -92,12 +90,11 @@ describe('Given EuphoniumsMongoRepo', () => {
       (EuphoniumModel.findById as jest.Mock).mockImplementation(() =>
         mockPopulate(null)
       );
-
       expect(async () => repo.queryId('')).rejects.toThrow();
     });
   });
 
-  describe('When I use search', () => {
+  describe('When the search method is used', () => {
     test('Then should return the data', async () => {
       (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockPopulate([{ id: '1' }])
@@ -108,7 +105,7 @@ describe('Given EuphoniumsMongoRepo', () => {
     });
   });
 
-  describe('When I use create', () => {
+  describe('When the create method is used', () => {
     test('Then should return the data', async () => {
       (EuphoniumModel.create as jest.Mock).mockImplementation(() =>
         mockPopulateWOExec({ id: '1' })
@@ -119,7 +116,7 @@ describe('Given EuphoniumsMongoRepo', () => {
     });
   });
 
-  describe('When I use update', () => {
+  describe('When the update method is used', () => {
     test('Then should return the data', async () => {
       (EuphoniumModel.findByIdAndUpdate as jest.Mock).mockImplementation(() =>
         mockPopulate({ id: '1' })
@@ -138,8 +135,8 @@ describe('Given EuphoniumsMongoRepo', () => {
     });
   });
 
-  describe('When I use destroy', () => {
-    test('Then should return the data', async () => {
+  describe('When the remove method is used', () => {
+    test('Then should call findByIdAndDelete', async () => {
       (EuphoniumModel.findByIdAndDelete as jest.Mock).mockResolvedValue([
         { id: 1 },
         { id: 2 },
@@ -148,7 +145,7 @@ describe('Given EuphoniumsMongoRepo', () => {
       expect(EuphoniumModel.findByIdAndDelete).toHaveBeenCalled();
     });
 
-    test('Then should throw error if no data return', async () => {
+    test('Then should throw error when there is an error', async () => {
       (EuphoniumModel.findByIdAndDelete as jest.Mock).mockImplementation(
         undefined
       );

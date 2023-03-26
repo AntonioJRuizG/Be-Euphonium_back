@@ -16,7 +16,7 @@ const userSchema = new Schema<User>({
     type: String,
     requierd: true,
   },
-  euphoniums: [{ type: Schema.Types.ObjectId, ref: 'euphonium' }],
+  euphoniums: [{ type: Schema.Types.ObjectId, ref: 'Bombardino' }],
 });
 
 userSchema.set('toJSON', {

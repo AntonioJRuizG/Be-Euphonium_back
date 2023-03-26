@@ -3,7 +3,7 @@ import { app } from './app.js';
 import { dbConnect } from './db/db.connetc.js';
 import createDebug from 'debug';
 
-const debug = createDebug('BC');
+const debug = createDebug('FP');
 
 const PORT = process.env.PORT || 4500;
 
@@ -21,5 +21,5 @@ server.on('error', (error) => {
 });
 
 server.on('listening', () => {
-  debug('Listening in http://localhost:' + PORT);
+  debug('Listening in PORT: ' + PORT);
 });

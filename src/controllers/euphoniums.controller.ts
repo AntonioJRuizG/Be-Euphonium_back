@@ -6,7 +6,7 @@ import { RepoEuph, RepoUser } from '../repository/repo.interface.js';
 import { RequestPlus } from '../interceptors/logged.js';
 import { HTTPError } from '../errors/custom.error.js';
 
-const debug = createDebug('BC:controller:euphoniums');
+const debug = createDebug('FP:controller:euphoniums');
 
 export class EuphoniumsController {
   constructor(

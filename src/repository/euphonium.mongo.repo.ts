@@ -3,7 +3,7 @@ import { Euphonium } from '../entities/euphonium.js';
 import { HTTPError } from '../errors/custom.error.js';
 import { EuphoniumModel } from './euphonium.mongo.model.js';
 import { RepoEuph } from './repo.interface.js';
-const debug = createDebug('BC:euphoniums_repo');
+const debug = createDebug('FP:euphoniums_repo');
 
 export class EuphoniumsMongoRepo implements RepoEuph<Euphonium> {
   private static instance: EuphoniumsMongoRepo;

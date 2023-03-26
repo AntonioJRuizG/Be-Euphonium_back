@@ -3,7 +3,7 @@ import { User } from '../entities/user.js';
 import { HTTPError } from '../errors/custom.error.js';
 import { RepoUser } from './repo.interface.js';
 import { UserModel } from './user.mongo.model.js';
-const debug = createDebug('BC:users_repo');
+const debug = createDebug('FP:users_repo');
 
 export class UsersMongoRepo implements RepoUser<User> {
   private static instance: UsersMongoRepo;

@@ -4,7 +4,7 @@ import createDebug from 'debug';
 import { RepoUser } from '../repository/repo.interface.js';
 import { HTTPError } from '../errors/custom.error.js';
 import { Auth, PayloadToken } from '../services/auth.js';
-const debug = createDebug('BC:controller:users');
+const debug = createDebug('FP:controller:users');
 
 export class UsersController {
   constructor(public repo: RepoUser<User>) {
@@ -15,7 +15,8 @@ export class UsersController {
     try {
       if (!req.body.email || !req.body.password)
         throw new HTTPError(401, 'Unauthorized', 'Invalid Email or password');
-      /* Add this code to manage user already exists error: const data2 = await this.repo.search({
+      /* Temp: Manage "already registered" error:
+       const data2 = await this.repo.search({
         key: 'email',
         value: req.body.email,
       });

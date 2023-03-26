@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { Error } from 'mongoose';
-
 import createDebug from 'debug';
 import { CustomError, HTTPError } from '../errors/custom.error.js';
 
-const debug = createDebug('Socil:app:errors');
+const debug = createDebug('FP:app:errors');
 
 export const errorsMiddleware = (
   error: CustomError | Error,

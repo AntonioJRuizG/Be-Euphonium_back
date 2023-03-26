@@ -13,7 +13,7 @@ const mockReq = {
 const mockRes = {} as Response;
 
 describe('Given logged function', () => {
-  describe('When it is called with a Authorisation Bearer token', () => {
+  describe('When it is called with Authorisation Bearer token', () => {
     test('Then it should call next()', async () => {
       (mockReq.get as jest.Mock).mockReturnValue('Bearer Authorisation-test');
       (Auth.verifyJWTGettingPayload as jest.Mock).mockResolvedValue(

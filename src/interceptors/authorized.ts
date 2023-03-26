@@ -4,7 +4,7 @@ import createDebug from 'debug';
 import { HTTPError } from '../errors/custom.error.js';
 import { EuphoniumsMongoRepo } from '../repository/euphonium.mongo.repo.js';
 
-const debug = createDebug('BC:interceptor:authorized');
+const debug = createDebug('FP:interceptor:authorized');
 export async function authorized(
   req: RequestPlus,
   _resp: Response,

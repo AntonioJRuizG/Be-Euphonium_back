@@ -5,7 +5,7 @@ import express from 'express';
 import { usersRouter } from './routers/users.router.js';
 import { errorsMiddleware } from './middlewares/errors.middleware.js';
 import { euphoniumsRouter } from './routers/euphonium.router.js';
-const debug = createDebug('BC:app');
+const debug = createDebug('FP:app');
 
 export const app = express();
 

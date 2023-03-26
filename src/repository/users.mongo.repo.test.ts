@@ -1,12 +1,12 @@
 import { UsersMongoRepo } from './users.mongo.repo';
 import { User } from '../entities/user';
-import { RepoSmall } from './repo.interface';
+import { RepoUser } from './repo.interface';
 import { UserModel } from './user.mongo.model';
 
 jest.mock('./user.mongo.model');
 
 describe('Given UsersMongoRepo', () => {
-  let repo: RepoSmall<User>;
+  let repo: RepoUser<User>;
 
   beforeEach(() => {
     repo = UsersMongoRepo.getInstance();
