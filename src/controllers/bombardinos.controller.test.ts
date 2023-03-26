@@ -100,6 +100,23 @@ describe('Given ThingsController', () => {
     });
   });
 
+  describe('Given getFiltered method', () => {
+    test('Then it should be called if there are NOT errors', async () => {
+      await controller.getFiltered(req, resp, next);
+      expect(mockRepoBombardinos.queryFiltered).toHaveBeenCalled();
+      expect(resp.json).toHaveBeenCalled();
+    });
+
+    test('Then it should have been called if there are errors', async () => {
+      (mockRepoBombardinos.queryFiltered as jest.Mock).mockRejectedValue(
+        new Error()
+      );
+      await controller.getFiltered(req, resp, next);
+      expect(mockRepoBombardinos.queryFiltered).toHaveBeenCalled();
+      expect(next).toHaveBeenCalled();
+    });
+  });
+
   describe('Given post method', () => {
     test('Then it should call resp.json if there is req.info.id', async () => {
       (mockRepoUsers.queryId as jest.Mock).mockResolvedValue({

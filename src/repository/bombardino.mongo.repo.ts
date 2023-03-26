@@ -39,6 +39,8 @@ export class BombardinosMongoRepo implements RepoPlus<Bombardino> {
       .skip(limit * Number(offset) - limit)
       .populate('creator', { bombardinos: 0 })
       .exec();
+    if (!data)
+      throw new HTTPError(404, 'Not found', 'Filter o pagination not valid');
     return data;
   }
 
@@ -50,6 +52,7 @@ export class BombardinosMongoRepo implements RepoPlus<Bombardino> {
       .skip(limit * Number(offset) - limit)
       .populate('creator', { bombardinos: 0 })
       .exec();
+    if (!data) throw new HTTPError(404, 'Not found', 'Pagination not valid');
     return data;
   }
 
