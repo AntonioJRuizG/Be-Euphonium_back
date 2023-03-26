@@ -2,10 +2,10 @@ import createDebug from 'debug';
 import { Euphonium } from '../entities/euphonium.js';
 import { HTTPError } from '../errors/custom.error.js';
 import { EuphoniumModel } from './euphonium.mongo.model.js';
-import { RepoPlus } from './repo.interface.js';
+import { RepoEuph } from './repo.interface.js';
 const debug = createDebug('BC:euphoniums_repo');
 
-export class EuphoniumsMongoRepo implements RepoPlus<Euphonium> {
+export class EuphoniumsMongoRepo implements RepoEuph<Euphonium> {
   private static instance: EuphoniumsMongoRepo;
 
   public static getInstance(): EuphoniumsMongoRepo {

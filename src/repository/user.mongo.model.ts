@@ -12,7 +12,7 @@ const userSchema = new Schema<User>({
     requiered: true,
     unique: true,
   },
-  pw: {
+  password: {
     type: String,
     requierd: true,
   },
@@ -24,7 +24,7 @@ userSchema.set('toJSON', {
     returnedObject.id = returnedObject._id;
     delete returnedObject.__v;
     delete returnedObject._id;
-    delete returnedObject.pw;
+    delete returnedObject.password;
   },
 });
 

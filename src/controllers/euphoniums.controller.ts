@@ -2,7 +2,7 @@ import { Response, Request, NextFunction } from 'express';
 import createDebug from 'debug';
 import { User } from '../entities/user.js';
 import { Euphonium } from '../entities/euphonium.js';
-import { RepoPlus, RepoSmall } from '../repository/repo.interface.js';
+import { RepoEuph, RepoUser } from '../repository/repo.interface.js';
 import { RequestPlus } from '../interceptors/logged.js';
 import { HTTPError } from '../errors/custom.error.js';
 
@@ -10,8 +10,8 @@ const debug = createDebug('BC:controller:euphoniums');
 
 export class EuphoniumsController {
   constructor(
-    public usersRepo: RepoSmall<User>,
-    public euphoniumsRepo: RepoPlus<Euphonium>
+    public usersRepo: RepoUser<User>,
+    public euphoniumsRepo: RepoEuph<Euphonium>
   ) {
     debug('Instantiate');
   }
