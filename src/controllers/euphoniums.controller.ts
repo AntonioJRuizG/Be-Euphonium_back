@@ -1,17 +1,17 @@
 import { Response, Request, NextFunction } from 'express';
 import createDebug from 'debug';
 import { User } from '../entities/user.js';
-import { Bombardino } from '../entities/bombardino.js';
+import { Euphonium } from '../entities/euphonium.js';
 import { RepoPlus, RepoSmall } from '../repository/repo.interface.js';
 import { RequestPlus } from '../interceptors/logged.js';
 import { HTTPError } from '../errors/custom.error.js';
 
-const debug = createDebug('W6:controller:bombardinos');
+const debug = createDebug('W6:controller:euphoniums');
 
-export class BombardinosController {
+export class EuphoniumsController {
   constructor(
     public usersRepo: RepoSmall<User>,
-    public bombardinosRepo: RepoPlus<Bombardino>
+    public euphoniumsRepo: RepoPlus<Euphonium>
   ) {
     debug('Instantiate');
   }
@@ -19,7 +19,7 @@ export class BombardinosController {
   async get(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('get');
-      const data = await this.bombardinosRepo.queryId(req.params.id);
+      const data = await this.euphoniumsRepo.queryId(req.params.id);
       resp.json({
         results: [data],
       });
@@ -31,7 +31,7 @@ export class BombardinosController {
   async getAll(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('getAll');
-      const data = await this.bombardinosRepo.query();
+      const data = await this.euphoniumsRepo.query();
       resp.json({
         results: data,
       });
@@ -43,7 +43,7 @@ export class BombardinosController {
   async getPaginated(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('getPaginated');
-      const data = await this.bombardinosRepo.queryPaginated(
+      const data = await this.euphoniumsRepo.queryPaginated(
         req.query.offset as string
       );
       resp.json({
@@ -57,7 +57,7 @@ export class BombardinosController {
   async getFiltered(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('getFiltered');
-      const data = await this.bombardinosRepo.queryFiltered(
+      const data = await this.euphoniumsRepo.queryFiltered(
         req.query.offset as string,
         req.query.level as string
       );
@@ -76,8 +76,8 @@ export class BombardinosController {
       if (!userId) throw new HTTPError(404, 'Not found', 'Not found user id');
       const actualUser = await this.usersRepo.queryId(userId);
       req.body.creator = userId;
-      const newEuphonium = await this.bombardinosRepo.create(req.body);
-      actualUser.bombardinos.push(newEuphonium);
+      const newEuphonium = await this.euphoniumsRepo.create(req.body);
+      actualUser.euphoniums.push(newEuphonium);
       this.usersRepo.update(actualUser);
       resp.json({
         results: [newEuphonium],
@@ -91,7 +91,7 @@ export class BombardinosController {
     try {
       debug('patch');
       req.body.id = req.params.id ? req.params.id : req.body.id;
-      const data = await this.bombardinosRepo.update(req.body);
+      const data = await this.euphoniumsRepo.update(req.body);
       resp.json({
         results: [data],
       });
@@ -103,7 +103,7 @@ export class BombardinosController {
   async delete(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('delete');
-      await this.bombardinosRepo.remove(req.params.id);
+      await this.euphoniumsRepo.remove(req.params.id);
       resp.json({
         results: [],
       });

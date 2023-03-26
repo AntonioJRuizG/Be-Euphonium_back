@@ -1,9 +1,9 @@
 import { Response } from 'express';
-import { BombardinosMongoRepo } from '../repository/bombardino.mongo.repo';
+import { EuphoniumsMongoRepo } from '../repository/euphonium.mongo.repo';
 import { authorized } from './authorized';
 import { RequestPlus } from './logged';
 
-const mockBombardinoRepo: BombardinosMongoRepo = {
+const mockEuphoniumRepo: EuphoniumsMongoRepo = {
   queryPaginated: jest.fn(),
   queryFiltered: jest.fn(),
   create: jest.fn(),
@@ -27,12 +27,12 @@ describe('Given authorized function', () => {
     test('Then it should call next()', async () => {
       mockReq.info = { id: 'test-user-id', email: 'test', role: 'test' };
       mockReq.params.id = 'Euphonium-id';
-      (mockBombardinoRepo.queryId as jest.Mock).mockReturnValue({
+      (mockEuphoniumRepo.queryId as jest.Mock).mockReturnValue({
         id: '1',
         manufacturer: 'test',
         creator: { id: 'test-user-id' },
       });
-      await authorized(mockReq, mockRes, next, mockBombardinoRepo);
+      await authorized(mockReq, mockRes, next, mockEuphoniumRepo);
       expect(next).toBeCalled();
     });
   });
@@ -41,12 +41,12 @@ describe('Given authorized function', () => {
     test('Then it should throw HTTPError', async () => {
       mockReq.info = undefined;
       mockReq.params.id = 'Euphonium-id';
-      (mockBombardinoRepo.queryId as jest.Mock).mockReturnValue({
+      (mockEuphoniumRepo.queryId as jest.Mock).mockReturnValue({
         id: '1',
         manufacturer: 'test',
         creator: { id: 'test-user-id' },
       });
-      await authorized(mockReq, mockRes, next, mockBombardinoRepo);
+      await authorized(mockReq, mockRes, next, mockEuphoniumRepo);
       expect(next).toHaveBeenCalled();
     });
   });
@@ -55,12 +55,12 @@ describe('Given authorized function', () => {
     test('Then it should throw HTTPError', async () => {
       mockReq.info = { id: 'test-user1-id', email: 'test', role: 'test' };
       mockReq.params.id = 'Euphonium-id';
-      (mockBombardinoRepo.queryId as jest.Mock).mockReturnValue({
+      (mockEuphoniumRepo.queryId as jest.Mock).mockReturnValue({
         id: '1',
         manufacturer: 'test',
         creator: { id: 'test-user2-id' },
       });
-      await authorized(mockReq, mockRes, next, mockBombardinoRepo);
+      await authorized(mockReq, mockRes, next, mockEuphoniumRepo);
       expect(next).toHaveBeenCalled();
     });
   });

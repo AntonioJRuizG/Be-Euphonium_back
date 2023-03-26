@@ -1,6 +1,6 @@
 import { User } from './user.js';
 
-export type Bombardino = {
+export type Euphonium = {
   id: string;
   alias: string;
   manufacturer: string;

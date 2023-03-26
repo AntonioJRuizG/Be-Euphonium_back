@@ -1,8 +1,8 @@
-import { BombardinosMongoRepo } from './bombardino.mongo.repo';
-import { BombardinoModel } from './bombardino.mongo.model';
-import { Bombardino } from '../entities/bombardino';
+import { EuphoniumsMongoRepo } from './euphonium.mongo.repo';
+import { EuphoniumModel } from './euphonium.mongo.model';
+import { Euphonium } from '../entities/euphonium';
 
-jest.mock('./bombardino.mongo.model.js');
+jest.mock('./euphonium.mongo.model.js');
 
 const mockPopulate = (mockPopulateParameter: unknown) => ({
   populate: jest.fn().mockImplementation(() => ({
@@ -24,15 +24,15 @@ const mockLimitSkipPopulateExec = (mockPopulateParameter: unknown) => ({
   })),
 });
 
-describe('Given BombardinosMongoRepo', () => {
-  const repo = BombardinosMongoRepo.getInstance();
+describe('Given EuphoniumsMongoRepo', () => {
+  const repo = EuphoniumsMongoRepo.getInstance();
   test('Then it should be instantiated', () => {
-    expect(repo).toBeInstanceOf(BombardinosMongoRepo);
+    expect(repo).toBeInstanceOf(EuphoniumsMongoRepo);
   });
 
   describe('When I use query', () => {
     test('Then should return the data', async () => {
-      (BombardinoModel.find as jest.Mock).mockImplementation(() =>
+      (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockPopulate([{ id: '1' }, { id: '2' }])
       );
       const result = await repo.query();
@@ -42,16 +42,16 @@ describe('Given BombardinosMongoRepo', () => {
 
   describe('When I use queryFiltered', () => {
     test('Then should return the data', async () => {
-      (BombardinoModel.find as jest.Mock).mockImplementation(() =>
+      (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockLimitSkipPopulateExec([{ id: '1' }, { id: '2' }])
       );
       const result = await repo.queryFiltered('test-offset', 'test-value');
-      expect(BombardinoModel.find).toHaveBeenCalled();
+      expect(EuphoniumModel.find).toHaveBeenCalled();
       expect(result).toEqual([{ id: '1' }, { id: '2' }]);
     });
 
     test('Then it should throw error if no data returns', async () => {
-      (BombardinoModel.find as jest.Mock).mockImplementation(() =>
+      (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockLimitSkipPopulateExec(null)
       );
 
@@ -61,16 +61,16 @@ describe('Given BombardinosMongoRepo', () => {
 
   describe('When I use queryPaginated', () => {
     test('Then should return the data', async () => {
-      (BombardinoModel.find as jest.Mock).mockImplementation(() =>
+      (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockLimitSkipPopulateExec([{ id: '1' }, { id: '2' }])
       );
       const result = await repo.queryPaginated('test-offset');
-      expect(BombardinoModel.find).toHaveBeenCalled();
+      expect(EuphoniumModel.find).toHaveBeenCalled();
       expect(result).toEqual([{ id: '1' }, { id: '2' }]);
     });
 
     test('Then it should throw error if no data returns', async () => {
-      (BombardinoModel.find as jest.Mock).mockImplementation(() =>
+      (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockLimitSkipPopulateExec(null)
       );
 
@@ -80,16 +80,16 @@ describe('Given BombardinosMongoRepo', () => {
 
   describe('When I use queryId', () => {
     test('Then should return the data', async () => {
-      (BombardinoModel.findById as jest.Mock).mockImplementation(() =>
+      (EuphoniumModel.findById as jest.Mock).mockImplementation(() =>
         mockPopulate({ id: '1' })
       );
       const result = await repo.queryId('1');
-      expect(BombardinoModel.findById).toHaveBeenCalled();
+      expect(EuphoniumModel.findById).toHaveBeenCalled();
       expect(result).toEqual({ id: '1' });
     });
 
     test('Then it should throw error if no data returns', async () => {
-      (BombardinoModel.findById as jest.Mock).mockImplementation(() =>
+      (EuphoniumModel.findById as jest.Mock).mockImplementation(() =>
         mockPopulate(null)
       );
 
@@ -99,57 +99,57 @@ describe('Given BombardinosMongoRepo', () => {
 
   describe('When I use search', () => {
     test('Then should return the data', async () => {
-      (BombardinoModel.find as jest.Mock).mockImplementation(() =>
+      (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockPopulate([{ id: '1' }])
       );
       const result = await repo.search({ key: 'test', value: 'test' });
-      expect(BombardinoModel.find).toHaveBeenCalled();
+      expect(EuphoniumModel.find).toHaveBeenCalled();
       expect(result).toEqual([{ id: '1' }]);
     });
   });
 
   describe('When I use create', () => {
     test('Then should return the data', async () => {
-      (BombardinoModel.create as jest.Mock).mockImplementation(() =>
+      (EuphoniumModel.create as jest.Mock).mockImplementation(() =>
         mockPopulateWOExec({ id: '1' })
       );
       const result = await repo.create({ id: '1' });
-      expect(BombardinoModel.create).toHaveBeenCalled();
+      expect(EuphoniumModel.create).toHaveBeenCalled();
       expect(result).toEqual({ id: '1' });
     });
   });
 
   describe('When I use update', () => {
     test('Then should return the data', async () => {
-      (BombardinoModel.findByIdAndUpdate as jest.Mock).mockImplementation(() =>
+      (EuphoniumModel.findByIdAndUpdate as jest.Mock).mockImplementation(() =>
         mockPopulate({ id: '1' })
       );
       const result = await repo.update({ id: '1' });
-      expect(BombardinoModel.findByIdAndUpdate).toHaveBeenCalled();
+      expect(EuphoniumModel.findByIdAndUpdate).toHaveBeenCalled();
       expect(result).toEqual({ id: '1' });
     });
 
     test('Then should throw error if return no data', async () => {
-      const mockBombardino = { id: 'test' } as Partial<Bombardino>;
-      (BombardinoModel.findByIdAndUpdate as jest.Mock).mockImplementation(() =>
+      const mockEuphonium = { id: 'test' } as Partial<Euphonium>;
+      (EuphoniumModel.findByIdAndUpdate as jest.Mock).mockImplementation(() =>
         mockPopulate(null)
       );
-      expect(async () => repo.update(mockBombardino)).rejects.toThrow();
+      expect(async () => repo.update(mockEuphonium)).rejects.toThrow();
     });
   });
 
   describe('When I use destroy', () => {
     test('Then should return the data', async () => {
-      (BombardinoModel.findByIdAndDelete as jest.Mock).mockResolvedValue([
+      (EuphoniumModel.findByIdAndDelete as jest.Mock).mockResolvedValue([
         { id: 1 },
         { id: 2 },
       ]);
       await repo.remove('1');
-      expect(BombardinoModel.findByIdAndDelete).toHaveBeenCalled();
+      expect(EuphoniumModel.findByIdAndDelete).toHaveBeenCalled();
     });
 
     test('Then should throw error if no data return', async () => {
-      (BombardinoModel.findByIdAndDelete as jest.Mock).mockImplementation(
+      (EuphoniumModel.findByIdAndDelete as jest.Mock).mockImplementation(
         undefined
       );
       const result = repo.remove('1');
