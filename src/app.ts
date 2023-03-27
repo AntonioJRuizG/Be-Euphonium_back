@@ -4,8 +4,8 @@ import createDebug from 'debug';
 import express from 'express';
 import { usersRouter } from './routers/users.router.js';
 import { errorsMiddleware } from './middlewares/errors.middleware.js';
-import { bombardinosRouter } from './routers/bombardinos.router.js';
-const debug = createDebug('W6:app');
+import { euphoniumsRouter } from './routers/euphonium.router.js';
+const debug = createDebug('FP:app');
 
 export const app = express();
 
@@ -22,11 +22,11 @@ debug('running');
 app.use(express.static('public'));
 
 app.use('/usuarios', usersRouter);
-app.use('/bombardinos', bombardinosRouter);
+app.use('/bombardinos', euphoniumsRouter);
 
 app.get('/', (_req, resp) => {
   resp.json({
-    info: 'La comunidad del Bombardino',
+    info: 'Comunidad de bombardinos entusiastas',
     bombardinos: '/bombardinos',
   });
 });

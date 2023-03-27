@@ -12,11 +12,11 @@ const userSchema = new Schema<User>({
     requiered: true,
     unique: true,
   },
-  pw: {
+  password: {
     type: String,
     requierd: true,
   },
-  bombardinos: [{ type: Schema.Types.ObjectId, ref: 'Bombardino' }],
+  euphoniums: [{ type: Schema.Types.ObjectId, ref: 'Bombardino' }],
 });
 
 userSchema.set('toJSON', {
@@ -24,7 +24,7 @@ userSchema.set('toJSON', {
     returnedObject.id = returnedObject._id;
     delete returnedObject.__v;
     delete returnedObject._id;
-    delete returnedObject.pw;
+    delete returnedObject.password;
   },
 });
 

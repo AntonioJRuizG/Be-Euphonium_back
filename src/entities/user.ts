@@ -1,9 +1,9 @@
-import { Bombardino } from './bombardino.js';
+import { Euphonium } from './euphonium.js';
 
 export type User = {
   id: string;
   name: string;
   email: string;
-  pw: string;
-  bombardinos: Bombardino[];
+  password: string;
+  euphoniums: Euphonium[];
 };

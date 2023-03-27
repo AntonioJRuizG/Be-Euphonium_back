@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
-import { Bombardino } from '../entities/bombardino.js';
+import { Euphonium } from '../entities/euphonium.js';
 
-const bombardinoSchema = new Schema<Bombardino>({
+const euphoniumSchema = new Schema<Euphonium>({
   alias: {
     type: String,
     requiered: true,
@@ -19,7 +19,7 @@ const bombardinoSchema = new Schema<Bombardino>({
     type: Number,
     requierd: false,
   },
-  level: {
+  material: {
     type: String,
     requiered: false,
   },
@@ -37,7 +37,7 @@ const bombardinoSchema = new Schema<Bombardino>({
   },
 });
 
-bombardinoSchema.set('toJSON', {
+euphoniumSchema.set('toJSON', {
   transform(_document, returnedObject) {
     returnedObject.id = returnedObject._id;
     delete returnedObject.__v;
@@ -45,8 +45,8 @@ bombardinoSchema.set('toJSON', {
   },
 });
 
-export const BombardinoModel = model(
+export const EuphoniumModel = model(
   'Bombardino',
-  bombardinoSchema,
+  euphoniumSchema,
   'bombardinos'
 );

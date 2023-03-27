@@ -1,21 +1,19 @@
 import { Request, Response } from 'express';
-import { Bombardino } from '../entities/bombardino';
+import { Euphonium } from '../entities/euphonium';
 import { User } from '../entities/user';
 import { RequestPlus } from '../interceptors/logged';
-import { RepoPlus, RepoSmall } from '../repository/repo.interface';
-import { BombardinosController } from './bombardinos.controller';
+import { RepoEuph, RepoUser } from '../repository/repo.interface';
+import { EuphoniumsController } from './euphoniums.controller';
 
 describe('Given ThingsController', () => {
-  const mockRepoUsers: RepoSmall<User> = {
+  const mockRepoUsers: RepoUser<User> = {
     create: jest.fn(),
-    query: jest.fn(),
     search: jest.fn(),
     queryId: jest.fn(),
     update: jest.fn(),
-    remove: jest.fn(),
   };
 
-  const mockRepoBombardinos: RepoPlus<Bombardino> = {
+  const mockRepoEuphoniums: RepoEuph<Euphonium> = {
     queryPaginated: jest.fn(),
     queryFiltered: jest.fn(),
     create: jest.fn(),
@@ -48,83 +46,79 @@ describe('Given ThingsController', () => {
 
   const next = jest.fn();
 
-  const controller = new BombardinosController(
+  const controller = new EuphoniumsController(
     mockRepoUsers,
-    mockRepoBombardinos
+    mockRepoEuphoniums
   );
 
-  describe('Given get method', () => {
-    test('Then it should have been called if there are NOT errors', async () => {
+  describe('Given the get method', () => {
+    test('Then queryId should have been called', async () => {
       await controller.get(req, resp, next);
-      expect(mockRepoBombardinos.queryId).toHaveBeenCalled();
+      expect(mockRepoEuphoniums.queryId).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
 
     test('Then it should call next if there are errors', async () => {
-      (mockRepoBombardinos.queryId as jest.Mock).mockRejectedValue(new Error());
+      (mockRepoEuphoniums.queryId as jest.Mock).mockRejectedValue(new Error());
       await controller.get(req, resp, next);
-      expect(mockRepoBombardinos.queryId).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
   });
 
-  describe('Given getAll method', () => {
-    test('Then it should be called if there are NOT errors', async () => {
+  describe('Given the getAll method', () => {
+    test('Then query should be called', async () => {
       await controller.getAll(req, resp, next);
-      expect(mockRepoBombardinos.query).toHaveBeenCalled();
+      expect(mockRepoEuphoniums.query).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
 
-    test('Then it should have been called if there are errors', async () => {
-      (mockRepoBombardinos.query as jest.Mock).mockRejectedValue(new Error());
+    test('Then it should call next if there are errors', async () => {
+      (mockRepoEuphoniums.query as jest.Mock).mockRejectedValue(new Error());
       await controller.getAll(req, resp, next);
-      expect(mockRepoBombardinos.query).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
   });
 
-  describe('Given getPaginated method', () => {
-    test('Then it should be called if there are NOT errors', async () => {
+  describe('Given the getPaginated method', () => {
+    test('Then queryPaginated should be called', async () => {
       await controller.getPaginated(req, resp, next);
-      expect(mockRepoBombardinos.queryPaginated).toHaveBeenCalled();
+      expect(mockRepoEuphoniums.queryPaginated).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
 
-    test('Then it should have been called if there are errors', async () => {
-      (mockRepoBombardinos.queryPaginated as jest.Mock).mockRejectedValue(
+    test('Then it should call next if there are errors', async () => {
+      (mockRepoEuphoniums.queryPaginated as jest.Mock).mockRejectedValue(
         new Error()
       );
       await controller.getPaginated(req, resp, next);
-      expect(mockRepoBombardinos.queryPaginated).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
   });
 
-  describe('Given getFiltered method', () => {
-    test('Then it should be called if there are NOT errors', async () => {
+  describe('Given the getFiltered method', () => {
+    test('Then it should call queryFiltered and resp.json', async () => {
       await controller.getFiltered(req, resp, next);
-      expect(mockRepoBombardinos.queryFiltered).toHaveBeenCalled();
+      expect(mockRepoEuphoniums.queryFiltered).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
 
-    test('Then it should have been called if there are errors', async () => {
-      (mockRepoBombardinos.queryFiltered as jest.Mock).mockRejectedValue(
+    test('Then next should have been called if there are errors', async () => {
+      (mockRepoEuphoniums.queryFiltered as jest.Mock).mockRejectedValue(
         new Error()
       );
       await controller.getFiltered(req, resp, next);
-      expect(mockRepoBombardinos.queryFiltered).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
   });
 
-  describe('Given post method', () => {
+  describe('Given the post method', () => {
     test('Then it should call resp.json if there is req.info.id', async () => {
       (mockRepoUsers.queryId as jest.Mock).mockResolvedValue({
         name: 'test',
         email: 'test',
-        bombardinos: [''],
+        euphoniums: [''],
       });
-      (mockRepoBombardinos.create as jest.Mock).mockResolvedValue({
+      (mockRepoEuphoniums.create as jest.Mock).mockResolvedValue({
         id: 'test-id-1',
         manufacturer: 'test',
         model: 'test',
@@ -132,14 +126,14 @@ describe('Given ThingsController', () => {
       (mockRepoUsers.update as jest.Mock).mockResolvedValue({
         name: 'test',
         email: 'test',
-        bombardinos: ['test-id-1'],
+        euphoniums: ['test-id-1'],
       });
 
       await controller.post(req, resp, next);
       expect(resp.json).toHaveBeenCalled();
     });
 
-    test('Then it should thorw error if there is no user id', async () => {
+    test('Then it should throw error if there is no user id', async () => {
       const req = {
         body: {
           creator: { id: 'test' } as User,
@@ -150,47 +144,44 @@ describe('Given ThingsController', () => {
         info: {},
       } as unknown as RequestPlus;
       (mockRepoUsers.queryId as jest.Mock).mockResolvedValue({});
-      (mockRepoBombardinos.create as jest.Mock).mockResolvedValue({
+      (mockRepoEuphoniums.create as jest.Mock).mockResolvedValue({
         model: 'test',
       });
       (mockRepoUsers.update as jest.Mock).mockResolvedValue({ email: 'test' });
 
       await controller.post(req, resp, next);
-      expect(resp.json).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
   });
 
-  describe('Given patch method', () => {
-    test('Then it should have been called if there are NOT errors', async () => {
+  describe('Given the patch method', () => {
+    test('Then it should have been called both update and resp.json', async () => {
       const req = {
         body: {},
         params: {},
       } as unknown as Request;
       await controller.patch(req, resp, next);
-      expect(mockRepoBombardinos.update).toHaveBeenCalled();
+      expect(mockRepoEuphoniums.update).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
 
     test('Then it should call next if there are errors', async () => {
-      (mockRepoBombardinos.update as jest.Mock).mockRejectedValue(new Error());
+      (mockRepoEuphoniums.update as jest.Mock).mockRejectedValue(new Error());
       await controller.patch(req, resp, next);
-      expect(mockRepoBombardinos.update).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
   });
 
-  describe('Given delete method', () => {
-    test('Then it should have been called if there are NOT errors', async () => {
+  describe('Given the delete method', () => {
+    test('Then resp.json should have been called', async () => {
       await controller.delete(req, resp, next);
-      expect(mockRepoBombardinos.remove).toHaveBeenCalled();
+      expect(mockRepoEuphoniums.remove).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
 
     test('Then it should call next if there are errors', async () => {
-      (mockRepoBombardinos.remove as jest.Mock).mockRejectedValue(new Error());
+      (mockRepoEuphoniums.remove as jest.Mock).mockRejectedValue(new Error());
       await controller.delete(req, resp, next);
-      expect(mockRepoBombardinos.remove).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
   });

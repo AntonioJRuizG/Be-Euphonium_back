@@ -22,7 +22,7 @@ describe('Given the errorsMiddleware', () => {
   });
 
   describe('When there is a mongoose validation error', () => {
-    test('Then if should give a 405 status', () => {
+    test('Then if should give a 406 status', () => {
       const error = new MongooseError.ValidationError();
       errorsMiddleware(error, req, resp, next);
       expect(resp.status).toHaveBeenCalledWith(406);
