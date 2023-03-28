@@ -91,6 +91,7 @@ export class EuphoniumsController {
     try {
       debug('patch');
       req.body.id = req.params.id ? req.params.id : req.body.id;
+      delete req.body.creator;
       const data = await this.euphoniumsRepo.update(req.body);
       resp.json({
         results: [data],

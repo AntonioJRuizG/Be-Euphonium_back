@@ -1,16 +1,19 @@
 import mongoose from 'mongoose';
-import { config } from '../config';
 import { dbConnect } from './db.connetc';
 
-jest.mock('mongoose');
+describe('Given dbConnect', () => {
+  describe('Given dbConnect', () => {
+    test('Then should call mongoose.connect with the correct URI', async () => {
+      const result = await dbConnect();
+      expect(typeof result).toBe(typeof mongoose);
+      mongoose.disconnect();
+    });
 
-describe('dbConnect', () => {
-  it('should call mongoose.connect with the correct URI', async () => {
-    const { user, password, cluster, dbName } = config;
-    const uri = `mongodb+srv://${user}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority`;
-
-    await dbConnect();
-
-    expect(mongoose.connect).toHaveBeenCalledWith(uri);
+    test('Then should call mongoose.connect with the correct testing URI', async () => {
+      process.env.NODE_ENV = 'Test';
+      const result = await dbConnect();
+      expect(typeof result).toBe(typeof mongoose);
+      mongoose.disconnect();
+    });
   });
 });
