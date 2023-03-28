@@ -1,0 +1,441 @@
+{
+	"info": {
+		"_postman_id": "2086fb23-c293-4cac-9798-229ed790cec0",
+		"name": "Bombardinos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26013070"
+	},
+	"item": [
+		{
+			"name": "Register user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"123456\",\r\n    \"email\": \"123456\",\r\n    \"pw\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4500/usuarios/registro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4500",
+					"path": [
+						"usuarios",
+						"registro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register user render",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"12\",\r\n    \"email\": \"12\",\r\n    \"pw\": \"12\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://antonio-ruiz-final-project-2023.onrender.com/usuarios/registro",
+					"protocol": "https",
+					"host": [
+						"antonio-ruiz-final-project-2023",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"usuarios",
+						"registro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Loggin user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"123456\",\r\n    \"pw\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4500/usuarios/acceso",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4500",
+					"path": [
+						"usuarios",
+						"acceso"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Loggin user render",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"12\",\r\n    \"pw\": \"12\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://antonio-ruiz-final-project-2023.onrender.com/usuarios/acceso",
+					"protocol": "https",
+					"host": [
+						"antonio-ruiz-final-project-2023",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"usuarios",
+						"acceso"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"12\",\r\n    \"pw\": \"12\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4500/usuarios/64191e36c8191780cdc28984",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4500",
+					"path": [
+						"usuarios",
+						"64191e36c8191780cdc28984"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bombardino",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4500/bombardinos/6414a545e8a000dfac6a5998",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4500",
+					"path": [
+						"bombardinos",
+						"6414a545e8a000dfac6a5998"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listado bombardinos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4500/bombardinos/?offset=2&level=Profesional",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4500",
+					"path": [
+						"bombardinos",
+						""
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "2"
+						},
+						{
+							"key": "level",
+							"value": "Profesional"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listado paginado",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4500/bombardinos/?offset=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4500",
+					"path": [
+						"bombardinos",
+						""
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listado paginado y filtrado",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4500/bombardinos/?offset=2&level=Profesional",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4500",
+					"path": [
+						"bombardinos",
+						""
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "2"
+						},
+						{
+							"key": "level",
+							"value": "Profesional"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Añadir bombardino",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTc4YjczNmU4NDljMzU0MWU4ZWNjMyIsImVtYWlsIjoicHJ1ZWJhMiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3OTI2NDYzNn0.lLsww3ILXnq-w9WFr6D6KJdAJ5o3bPJWwR3VcZF93q0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"alias\": \"Dorado\",\r\n    \"manufacturer\": \"Yamaha\",\r\n    \"instrumentModel\": \"YEP-621\",\r\n    \"valves\": 4,\r\n    \"level\": \"Intermediate\",\r\n    \"marchingBand\": true,\r\n    \"image\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4500/bombardinos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4500",
+					"path": [
+						"bombardinos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar bombardino",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTc4YjczNmU4NDljMzU0MWU4ZWNjMyIsImVtYWlsIjoicHJ1ZWJhMiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3OTI2NDYzNn0.lLsww3ILXnq-w9WFr6D6KJdAJ5o3bPJWwR3VcZF93q0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"alias\": \"Dorado\",\r\n    \"manufacturer\": \"Yamaha\",\r\n    \"instrumentModel\": \"YEP-621\",\r\n    \"valves\": 4,\r\n    \"level\": \"Intermediate\",\r\n    \"marchingBand\": true,\r\n    \"image\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4500/bombardinos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4500",
+					"path": [
+						"bombardinos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar bombardino",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTc4YjczNmU4NDljMzU0MWU4ZWNjMyIsImVtYWlsIjoicHJ1ZWJhMiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3OTI2NDYzNn0.lLsww3ILXnq-w9WFr6D6KJdAJ5o3bPJWwR3VcZF93q0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"alias\": \"Dorado\",\r\n    \"manufacturer\": \"Yamaha\",\r\n    \"instrumentModel\": \"YEP-621\",\r\n    \"valves\": 4,\r\n    \"level\": \"Intermediate\",\r\n    \"marchingBand\": true,\r\n    \"image\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4500/bombardinos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4500",
+					"path": [
+						"bombardinos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
