@@ -9,8 +9,9 @@
     "start:mon": "cross-env DEBUG=W6* PORT=4500 nodemon ./dist/index.js",
     "build": "tsc -w",
     "build:prod": "tsc",
-    "test": "jest --watchAll --coverage",
-    "test:prod": "jest --watchAll --coverage --watchAll=false --passWithNoTests"
+    "test": "cross-env NODE_ENV=test jest --watchAll --coverage",
+    "super:test": "cross-env NODE_ENV=test jest --watchAll --coverage --runInBand",
+    "test:prod": "cross-env NODE_ENV=test jest --coverage --runInBand"
   },
   "keywords": [
     "Node",
@@ -50,6 +51,7 @@
     "jest-ts-webcompat-resolver": "^1.0.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "supertest": "^6.3.3"
   }
 }
