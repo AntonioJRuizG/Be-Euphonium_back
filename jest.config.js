@@ -11,6 +11,6 @@ export default {
     'src/config.ts',
     '.mongo.model.ts',
     'routers',
-    'src/e2e',
+    'src/e2e/user.euphoniums.spec.ts',
   ],
 };
