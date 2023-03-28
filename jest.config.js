@@ -11,6 +11,6 @@ export default {
     'src/config.ts',
     '.mongo.model.ts',
     'routers',
-    'src/**/*.spec.*',
+    'src/e2e',
   ],
 };
