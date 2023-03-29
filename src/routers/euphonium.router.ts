@@ -13,9 +13,6 @@ const controller = new EuphoniumsController(usersRepo, euphoniumsRepo);
 
 euphoniumsRouter.get('/', controller.getPaginated.bind(controller));
 euphoniumsRouter.get('/filter', controller.getFiltered.bind(controller));
-
-// Tmp euphoniumsRouter.get('/', controller.getAll.bind(controller));
-
 euphoniumsRouter.get('/:id', controller.get.bind(controller));
 euphoniumsRouter.post('/', logged, controller.post.bind(controller));
 euphoniumsRouter.patch(
