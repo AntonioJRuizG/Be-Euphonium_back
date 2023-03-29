@@ -60,7 +60,7 @@ describe('Given an App, with user route', () => {
       id: userIds[0],
       name: 'Lorena20',
       email: 'lorena@gmail.com',
-      role: 'Admin',
+      role: 'user',
     };
 
     token = Auth.createJWT(payload);

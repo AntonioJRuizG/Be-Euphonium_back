@@ -50,7 +50,7 @@ export class UsersController {
       const payload: PayloadToken = {
         id: data[0].id,
         email: data[0].email,
-        role: 'admin',
+        role: 'user',
       };
       const token = Auth.createJWT(payload);
       const userData = await this.repo.queryId(data[0].id);
