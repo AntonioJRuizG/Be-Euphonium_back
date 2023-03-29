@@ -35,6 +35,7 @@ export class EuphoniumsMongoRepo implements RepoEuph<Euphonium> {
     debug('queryFiltered');
     const limit = 4;
     const data = await EuphoniumModel.find({ material: materialValue })
+      .sort({ _id: -1 })
       .limit(limit)
       .skip(limit * Number(offset) - limit)
       .populate('creator', { euphoniums: 0 })
@@ -48,6 +49,7 @@ export class EuphoniumsMongoRepo implements RepoEuph<Euphonium> {
     debug('queryPaginated');
     const limit = 4;
     const data = await EuphoniumModel.find()
+      .sort({ _id: -1 })
       .limit(limit)
       .skip(limit * Number(offset) - limit)
       .populate('creator', { euphoniums: 0 })
