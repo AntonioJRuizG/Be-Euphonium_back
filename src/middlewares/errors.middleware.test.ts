@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { errorsMiddleware } from './errors.middleware';
 import { Error as MongooseError } from 'mongoose';
-import { HTTPError } from '../errors/custom.error';
+import { HTTPError } from '../error/custom.error';
 
 const req = {} as Request;
 

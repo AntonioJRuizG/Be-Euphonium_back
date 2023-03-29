@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { Error } from 'mongoose';
 import createDebug from 'debug';
-import { CustomError, HTTPError } from '../errors/custom.error.js';
+import { CustomError, HTTPError } from '../error/custom.error.js';
 
 const debug = createDebug('FP:app:errors');
 

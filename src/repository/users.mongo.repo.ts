@@ -1,6 +1,6 @@
 import createDebug from 'debug';
 import { User } from '../entities/user.js';
-import { HTTPError } from '../errors/custom.error.js';
+import { HTTPError } from '../error/custom.error.js';
 import { RepoUser } from './repo.interface.js';
 import { UserModel } from './user.mongo.model.js';
 const debug = createDebug('FP:users_repo');

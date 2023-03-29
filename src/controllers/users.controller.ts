@@ -2,7 +2,7 @@ import { Response, Request, NextFunction } from 'express';
 import { User } from '../entities/user.js';
 import createDebug from 'debug';
 import { RepoUser } from '../repository/repo.interface.js';
-import { HTTPError } from '../errors/custom.error.js';
+import { HTTPError } from '../error/custom.error.js';
 import { Auth, PayloadToken } from '../services/auth.js';
 const debug = createDebug('FP:controller:users');
 

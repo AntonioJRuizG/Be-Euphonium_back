@@ -1,6 +1,6 @@
 import createDebug from 'debug';
 import { Euphonium } from '../entities/euphonium.js';
-import { HTTPError } from '../errors/custom.error.js';
+import { HTTPError } from '../error/custom.error.js';
 import { EuphoniumModel } from './euphonium.mongo.model.js';
 import { RepoEuph } from './repo.interface.js';
 const debug = createDebug('FP:euphoniums_repo');

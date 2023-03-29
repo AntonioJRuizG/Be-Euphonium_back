@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import { RequestPlus } from './logged.js';
 import createDebug from 'debug';
-import { HTTPError } from '../errors/custom.error.js';
+import { HTTPError } from '../error/custom.error.js';
 import { EuphoniumsMongoRepo } from '../repository/euphonium.mongo.repo.js';
 
 const debug = createDebug('FP:interceptor:authorized');
