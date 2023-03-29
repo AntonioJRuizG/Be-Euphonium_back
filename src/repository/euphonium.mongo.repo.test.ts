@@ -15,10 +15,12 @@ const mockPopulateWOExec = (mockPopulateParameter: unknown) => ({
 });
 
 const mockLimitSkipPopulateExec = (mockPopulateParameter: unknown) => ({
-  limit: jest.fn().mockImplementation(() => ({
-    skip: jest.fn().mockImplementation(() => ({
-      populate: jest.fn().mockImplementation(() => ({
-        exec: jest.fn().mockResolvedValue(mockPopulateParameter),
+  sort: jest.fn().mockImplementation(() => ({
+    limit: jest.fn().mockImplementation(() => ({
+      skip: jest.fn().mockImplementation(() => ({
+        populate: jest.fn().mockImplementation(() => ({
+          exec: jest.fn().mockResolvedValue(mockPopulateParameter),
+        })),
       })),
     })),
   })),
