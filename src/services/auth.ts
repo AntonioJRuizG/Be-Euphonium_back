@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { config } from '../config.js';
 import createDebug from 'debug';
-import { HTTPError } from '../error/custom.error.js';
+import { HTTPError } from '../errors/custom.error.js';
 const debug = createDebug('FP:services:auth');
 
 debug('Loaded');

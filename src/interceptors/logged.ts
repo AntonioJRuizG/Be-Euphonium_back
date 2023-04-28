@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import createDebug from 'debug';
-import { HTTPError } from '../error/custom.error.js';
+import { HTTPError } from '../errors/custom.error.js';
 import { Auth, PayloadToken } from '../services/auth.js';
 
 const debug = createDebug('FP:interceptor:logged');

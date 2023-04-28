@@ -4,7 +4,7 @@ import { User } from '../entities/user.js';
 import { Euphonium } from '../entities/euphonium.js';
 import { RepoEuph, RepoUser } from '../repository/repo.interface.js';
 import { RequestPlus } from '../interceptors/logged.js';
-import { HTTPError } from '../error/custom.error.js';
+import { HTTPError } from '../errors/custom.error.js';
 
 const debug = createDebug('FP:controller:euphoniums');
 
