@@ -22,7 +22,19 @@ export class UsersMongoRepo implements RepoUser<User> {
 
   async create(info: Partial<User>): Promise<User> {
     debug('create');
+
+    const nameData = await UserModel.findOne({ name: info.name });
+    if (nameData) return nameData;
+
+    const emailData = await UserModel.findOne({ email: info.email });
+    if (emailData)
+      throw new HTTPError(
+        500,
+        'Email already exists',
+        'ID not found in queryID'
+      );
     const data = await UserModel.create(info);
+    debug(data);
     return data;
   }
 
