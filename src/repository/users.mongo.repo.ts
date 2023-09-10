@@ -21,13 +21,12 @@ export class UsersMongoRepo implements RepoUser<User> {
   }
 
   async create(info: Partial<User>): Promise<User> {
-    debug('create');
-
+    debug('createeeee');
     const nameData = await UserModel.findOne({ name: info.name });
-    if (nameData) return nameData;
 
     const emailData = await UserModel.findOne({ email: info.email });
-    if (emailData)
+
+    if (emailData || nameData)
       throw new HTTPError(
         500,
         'Email already exists',
