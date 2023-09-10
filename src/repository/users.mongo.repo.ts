@@ -21,7 +21,7 @@ export class UsersMongoRepo implements RepoUser<User> {
   }
 
   async create(info: Partial<User>): Promise<User> {
-    debug('createeeee');
+    debug('create');
     const nameData = await UserModel.findOne({ name: info.name });
 
     const emailData = await UserModel.findOne({ email: info.email });
