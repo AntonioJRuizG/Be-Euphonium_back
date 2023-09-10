@@ -10,10 +10,6 @@ const mockPopulate = (mockPopulateParameter: unknown) => ({
   })),
 });
 
-const mockPopulateWOExec = (mockPopulateParameter: unknown) => ({
-  populate: jest.fn().mockResolvedValue(mockPopulateParameter),
-});
-
 const mockLimitSkipPopulateExec = (mockPopulateParameter: unknown) => ({
   sort: jest.fn().mockImplementation(() => ({
     limit: jest.fn().mockImplementation(() => ({
@@ -113,9 +109,7 @@ describe('Given EuphoniumsMongoRepo', () => {
 
   describe('When the create method is used', () => {
     test('Then should return the data', async () => {
-      (EuphoniumModel.create as jest.Mock).mockImplementation(() =>
-        mockPopulateWOExec({ id: '1' })
-      );
+      (EuphoniumModel.create as jest.Mock).mockResolvedValue({ id: '1' });
       const result = await repo.create({ id: '1' });
       expect(EuphoniumModel.create).toHaveBeenCalled();
       expect(result).toEqual({ id: '1' });
