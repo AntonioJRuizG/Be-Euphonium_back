@@ -47,7 +47,11 @@ describe('Given EuphoniumsMongoRepo', () => {
       (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockLimitSkipPopulateExec([{ id: '1' }, { id: '2' }])
       );
-      const result = await repo.queryFiltered('test-offset', 'test-value');
+      const result = await repo.queryFiltered(
+        'test-offset',
+        'test-value',
+        'test-value'
+      );
       expect(EuphoniumModel.find).toHaveBeenCalled();
       expect(result).toEqual([{ id: '1' }, { id: '2' }]);
     });
@@ -56,7 +60,7 @@ describe('Given EuphoniumsMongoRepo', () => {
       (EuphoniumModel.find as jest.Mock).mockImplementation(() =>
         mockLimitSkipPopulateExec(null)
       );
-      expect(async () => repo.queryFiltered('', '')).rejects.toThrow();
+      expect(async () => repo.queryFiltered('', '', '')).rejects.toThrow();
     });
   });
 

@@ -19,6 +19,8 @@ describe('Given UsersMongoRepo', () => {
     });
   });
 
+  /// ///////////////////////////////////////////////////////////
+
   describe('When the create method is used', () => {
     test('Then the create method should be called', async () => {
       (UserModel.create as jest.Mock).mockResolvedValue({ email: 'test' });
@@ -26,10 +28,27 @@ describe('Given UsersMongoRepo', () => {
       expect(UserModel.create).toHaveBeenCalled();
       expect(result).toEqual({ email: 'test' });
     });
-  });
 
+    test('Then the create method should not be called if user email exists', async () => {
+      (UserModel.findOne as jest.Mock).mockResolvedValue({
+        id: 'test',
+        name: 'test-3',
+        email: 'test-4',
+        password: 'test',
+        euphoniums: [],
+      });
+      expect(UserModel.findOne).toHaveBeenCalled();
+      expect(async () =>
+        repo.create({
+          name: 'test',
+          email: 'test-2',
+        })
+      ).rejects.toThrow();
+    });
+  });
+  /// /////////////////////////////////////////////////////////////
   describe('When the search method is used', () => {
-    test('Then the search method should be called', async () => {
+    test('Then the find method should be called', async () => {
       (UserModel.find as jest.Mock).mockResolvedValue({ email: 'test-email' });
       const result = await repo.search({ key: 'test', value: 'test-email' });
       expect(UserModel.find).toHaveBeenCalled();

@@ -57,9 +57,11 @@ export class EuphoniumsController {
   async getFiltered(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('getFiltered');
+      const queryParam = Object.keys(req.query)[1];
       const data = await this.euphoniumsRepo.queryFiltered(
         req.query.offset as string,
-        req.query.material as string
+        req.query[queryParam] as string,
+        Object.keys(req.query)[1]
       );
       resp.json({
         results: data,

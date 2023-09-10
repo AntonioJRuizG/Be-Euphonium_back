@@ -30,11 +30,14 @@ export class EuphoniumsMongoRepo implements RepoEuph<Euphonium> {
 
   async queryFiltered(
     offset: string,
-    materialValue: string
+    filterValue: string,
+    filterCategory: string
   ): Promise<Euphonium[]> {
     debug('queryFiltered');
-    const limit = 4;
-    const data = await EuphoniumModel.find({ material: materialValue })
+    const filter: Record<string, string> = {};
+    filter[filterCategory] = filterValue;
+    const limit = 8;
+    const data = await EuphoniumModel.find(filter)
       .sort({ _id: -1 })
       .limit(limit)
       .skip(limit * Number(offset) - limit)
@@ -47,7 +50,7 @@ export class EuphoniumsMongoRepo implements RepoEuph<Euphonium> {
 
   async queryPaginated(offset: string): Promise<Euphonium[]> {
     debug('queryPaginated');
-    const limit = 4;
+    const limit = 8;
     const data = await EuphoniumModel.find()
       .sort({ _id: -1 })
       .limit(limit)
