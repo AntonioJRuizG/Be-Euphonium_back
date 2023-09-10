@@ -79,7 +79,7 @@ export class EuphoniumsMongoRepo implements RepoEuph<Euphonium> {
   }
 
   async create(info: Partial<Euphonium>): Promise<Euphonium> {
-    const data = (await EuphoniumModel.create(info)).populate('creator');
+    const data = await EuphoniumModel.create(info);
     return data;
   }
 
